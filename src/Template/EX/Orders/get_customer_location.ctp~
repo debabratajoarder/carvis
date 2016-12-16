@@ -1,0 +1,11 @@
+<div class="input">
+	<label>Locations</label>
+	<select data-placeholder="Choose Location" name="address_id" id="address_id" required="required" 
+	class="form-control chzn-select" onchange="getRunValues(this.value)">
+	<option value="">Choose Locations</option>
+	<?php foreach($customers as $custKey=>$custval){?>
+		<option value="<?=$custKey?>"><?=$custval?></option>
+	<?php } ?>
+	</select>
+</div>
+
