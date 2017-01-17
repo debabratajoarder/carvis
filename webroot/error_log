@@ -30,3 +30,6 @@
 [31-Mar-2016 09:20:20 UTC] PHP Parse error:  syntax error, unexpected 'DOCUMENT_ROOT' (T_STRING) in /home/xigmhyfm/public_html/dev1/bakery/src/Controller/Admin/OrdersController.php on line 230
 [31-Mar-2016 09:20:31 UTC] PHP Parse error:  syntax error, unexpected 'DOCUMENT_ROOT' (T_STRING) in /home/xigmhyfm/public_html/dev1/bakery/src/Controller/Admin/OrdersController.php on line 230
 [31-Mar-2016 09:22:35 UTC] PHP Parse error:  syntax error, unexpected 'DOCUMENT_ROOT' (T_STRING) in /home/xigmhyfm/public_html/dev1/bakery/src/Controller/Admin/OrdersController.php on line 230
+[27-Dec-2016 04:21:59 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 3029546 bytes) in /home/meddev/public_html/vendor/cakephp/cakephp/src/Database/Statement/PDOStatement.php on line 72
+[03-Jan-2017 06:26:07 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 3036164 bytes) in /home/meddev/public_html/vendor/cakephp/cakephp/src/Database/Statement/PDOStatement.php on line 72
+[03-Jan-2017 10:24:56 UTC] PHP Fatal error:  Cannot use object of type Cake\ORM\ResultSet as array in /home/meddev/public_html/src/Controller/CategoriesController.php on line 63

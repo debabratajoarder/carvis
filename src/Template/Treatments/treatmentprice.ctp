@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <?php //echo $this->element('sidebar');?>
-            <div class="col-md-9">
+            <div class="col-md-6">
                 <h3> <?php echo $treatment['name']?> </h3>
                 <div class="buy-treatment-body">
                     <div class="breadcrumb-area">

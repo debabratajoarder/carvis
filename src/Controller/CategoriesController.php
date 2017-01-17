@@ -43,6 +43,7 @@ class CategoriesController extends AppController {
     public function detail($slug=null) {
        
         $this->loadModel('Categories');
+        $this->loadModel('TreatmentCategories');
         $this->viewBuilder()->layout('default');
         $data = $this->Categories->find()
                 ->hydrate(false)                                
@@ -52,12 +53,19 @@ class CategoriesController extends AppController {
                     }])
                 ->limit(10000)->first();
         //pr($data); exit;
+                    
+        $others = $this->TreatmentCategories->find()
+                ->where(['TreatmentCategories.catid != ' => $slug])
+                ->order('rand()')
+                ->contain(['Treatments'])
+                ->limit(5)->all()->toArray();
+        
         
         $pageSeo['site_meta_title'] = $data['meta_title'];
         $pageSeo['site_meta_description'] = $data['meta_description'];
         $pageSeo['site_meta_key'] = $data['meta_key'];        
 
-        $this->set(compact('data', 'pageSeo'));
+        $this->set(compact('data', 'pageSeo','others'));
         $this->set('_serialize', ['data']); 
 
     }

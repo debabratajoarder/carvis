@@ -74,13 +74,12 @@
                 </div>
                 <div class="disfunction">
                     <ul>
-                        <li><a href="#">Acid reflux</a></li>
-                        <li><a href="#">Chlamydia</a></li>
-                        <li><a href="#">Asthma inhalers</a></li>
-                        <li><a href="#">Acne treatment</a></li>
-                        <li><a href="#">Cold sores</a></li>
-                        <li><a href="#">Migraine relief</a></li>
-                        <li><a href="#">Irritable bowel syndrome</a></li>
+                        <?php foreach($others as $other)
+                        { ?>
+                            <li>
+                                <?php echo $this->Html->link($other['Treatments']['name'], ['controller' => 'Treatments', 'action' => 'treatmentdetail', $other['Treatments']['slug']]); ?></li>
+                            <?php
+                        } ?>
                     </ul>
                 </div>
             </div>
