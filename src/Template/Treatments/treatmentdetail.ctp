@@ -443,7 +443,7 @@ $(document).ready(function(){
                         <div id="price-collapse" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                             <div class="panel-body">
                                 <div class="tab-pane active" id="1">
-                                    <div class="table-responsive">
+                                    <div class="">
                                         <table class="table table-bordered table-hover">
                                             <thead>
                                                 <tr>
@@ -468,12 +468,12 @@ $(document).ready(function(){
                                                 <?php } ?>
                                             </tbody>
                                             <tfoot>
-                                                <tr>
+<!--                                                <tr>
                                                     <td colspan="3">Prescription issued online - small <a href="#">prescription fee</a> per order.</td>
 
-                                                </tr>
+                                                </tr>-->
                                                 <tr>
-                                                    <td colspan="3"><a href="#">Compare prices:</a> Ascot Pharmacy prices are 25%-50% lower cost than other online clinics.</td>
+                                                    <td colspan="3"> Medicinesbymailbox prices are 25%-50% lower cost than other online clinics.</td>
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -531,13 +531,13 @@ $(document).ready(function(){
                         <div id="parallel-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                             <div class="panel-body">
                                 <div class="tab-pane active" id="3">
-                                    <div class="table-responsive">
+                                    <div class="table-responsive" style="overflow-x: scroll">
                                        <table class="table table-bordered table-hover">
                                            <thead>
                                                <tr>
                                                    <th>Items</th>
-                                                   <th>Ascot Pharmacy</th>
-                                                   <th>Ascot Pharmacy</th>
+                                                   <th>Medicinesbymailbox</th>
+                                                   <th>Dr. Fox</th>
                                                    <th>Pharmacy2U</th>
                                                    <th>Superdrug</th>
                                                    <th>Express Pharmacy</th>
@@ -581,8 +581,8 @@ $(document).ready(function(){
                                            </tbody>
                                            <tfoot>
                                                <tr>
-                                                   <td colspan="6">Comparative costs of Trimethoprim 200mg x 6 from UK online clinics (13 September 2016) - qualifying notes
-                                                       *Ascot Pharmacy adds a small prescription fee not included in table above.</td>
+                                                   <td colspan="6"><!--Comparative costs of Trimethoprim 200mg x 6 from UK online clinics (13 September 2016) - qualifying notes-->
+                                                       *Medicinesbymailbox adds a small prescription fee not included in table above.</td>
                                                </tr>
                                            </tfoot>
                                        </table>
@@ -608,9 +608,9 @@ $(document).ready(function(){
                                         <li>
                                             <?php echo $this->Html->link('More details', ['controller' => 'Contents', 'action' => 'index', "delivery"], ['class' => 'left']); ?>
                                         </li>
-                                        <li>
+<!--                                        <li>
                                             <a class="left ml_25" href="javascript:void(0)">Discreet</a>
-                                        </li>
+                                        </li>-->
                                         <li>
                                             <?php echo $this->Html->link('Refunds', ['controller' => 'Contents', 'action' => 'index', "return-and-refunds"], ['class' => 'left ml_25']); ?>
                                         </li>

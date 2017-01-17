@@ -874,7 +874,7 @@ a:focus, a:hover{outline: none; color: #0c72af;}
     padding: 6px 20px;}
 .treatments-body-aarea{ width:auto; padding:0;}
 .viagra-product{ border:1px solid #f1f1f1; width:100%; margin:0 0 18px;}
-.viagra-product-pic{height: 185px; overflow: hidden; width: 200px; margin:0 auto; padding:20px 0 0 0;}
+.viagra-product-pic{height: 150px; overflow: hidden; width: 130px; margin:0 auto; padding:25px 0 0 0;}
 .viagra-product-pic img{ width:100%; display:block;}
 .viagra-product h3{background:#33afe3; color: #fff;
     font-size: 18px;
@@ -882,14 +882,14 @@ a:focus, a:hover{outline: none; color: #0c72af;}
     padding: 10px;
     width: 100%;
 	white-space:nowrap; overflow: hidden; text-overflow: ellipsis;}
-.viagra-product-text{ margin:20px 15px; padding:0;}
+.viagra-product-text{ margin:25px 15px; padding:0;}
 .viagra-product-text p{ color:#5e5e5e; font-size:14px; line-height:24px;}
 .treatments-body-aarea .nav-tabs{ margin-bottom:0; border-bottom:1px solid #f1f1f1;}
 .treatments-body-aarea .nav-tabs .active{ color:#2585c5; background:#fff;}
 .treatments-body-aarea .nav-tabs > li > a:hover{background:#a9ddf6; color:#fff; }
 .treatments-body-aarea .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{ border-color:#f1f1f1 #f1f1f1 transparent; border-style:solid; border-width:1px; color:#2585c5;}
 .treatments-body-aarea .tab-content{border-right:1px solid #f1f1f1; border-left:1px solid #f1f1f1; border-bottom:1px solid #f1f1f1; padding:28px 15px 0;}
-.viagra-product-text .btn-success{ border-radius:3px; padding:7px 17px; font-size:16px; background:#1dcc3a; border-color:transparent; margin:0;}
+.viagra-product-text .btn-success{ border-radius:3px; padding:6px 12px; font-size:13px; font-weight:600; background:#1dcc3a; border-color:transparent; margin:0;}
 .viagra-product-text .btn-success:hover{ background:#10a829;}
 
 .buy-treatment-body{ width:auto; padding:0 0 0 10px;}
@@ -932,7 +932,7 @@ width:24px; float: left;}
 .next .btn-success{ font-size:20px; font-weight:400;}
 .cart-btn{ font-size:20px; font-weight:400;}
 
-.treatments-mid-body{ width:100%; margin:30px 15px; padding:0;}
+.treatments-mid-body{ width:100%; margin:0; padding:0;}
 .symptoms{ width:auto;}
 .symptoms h3{color: #212121; font-weight: 700;}
 .symptoms p{ color:#232323;}
@@ -1568,7 +1568,8 @@ a {
 }
 
 .bordered-block{
-	margin-top:28px;
+	margin-top:0;
+	margin-bottom:30px;
 }
 
 .list-part li i{
@@ -1842,8 +1843,7 @@ a {
 	float: right;
 }
 .delivery-para{
-	float:left;
-	width: 60%;
+	width: auto;
 }
 
 .treatments-prices-banner-area p{
@@ -2234,12 +2234,13 @@ form.registration_form label.male-btn, form.registration_form label.female-btn{
     padding: 10px;
     position: absolute;
     width: 100%;
+    padding-left: 15px !important;
 }
 .right_img h2 a{
 
     color: #fff !important;
 	text-decoration: none;
-	margin-left: 15px;
+/*	margin-left: 15px;*/
 }
 
 .disfunction p{
@@ -3105,3 +3106,27 @@ form.registration_form label{
 .returns-refunds h4{ color:#2585c5; font-weight:700; padding:0;}
 .detail-accordion .table.table-bordered th{ background:#e4e4e4; color:#595959;}
 .detail-accordion .viagra-product h3{background:#e4e4e4; color:#595959;}
+
+/*---------------------------------------09.12.2016-------------------------------------*/
+.treatments-prices-banner-area .side-menu-area .side-menu-list ul li p{ margin:15px;}
+.treatments-prices-banner-area .side-menu-area .side-menu-list ul li video{ margin:0 15px 15px; width:88%;}
+.treatments-prices-banner-area .side-menu-area .side-menu-list ul li marquee a h5{ padding: 0 15px;}
+.treatments-prices-banner-area .side-menu-area .side-menu-list ul li a.btn-info{ background:#3bd7f3; width:54%; text-align:center; border-color:#3bd7f3; color:#ffffff !important; text-shadow:none; text-transform:uppercase; margin:0 auto;}
+.treatments-prices-banner-area .side-menu-area .side-menu-list ul li a.btn-info:hover{ background:#28c4e0;}
+.treatments-prices-banner-area .side-menu-area .side-menu-list ul li marquee div.top-reviews{ border-bottom:1px dashed #c9c9c9; border-radius:none; border-top:none; border-left:none; border-right:none;}
+.treatments-prices-banner-area .side-menu-area .side-menu-list ul li marquee a{ border-bottom:1px dashed #c9c9c9;}
+.treatments-prices-banner-area .side-menu-area .side-menu-list ul li .logo{ width:120px; margin:15px auto 0;}
+.treatments-prices-banner-area .side-menu-area .side-menu-list ul li .logo img{ width:100%; margin:0 auto;}
+.treatments-prices-banner-area .side-menu-area .side-menu-list ul li p i.fa-check-circle-o{ color:#3bd7f3;}
+.treatments-prices-banner-area .side-menu-area .side-menu-list ul li .pic{ width:190px; margin:15px auto;}
+.treatments-prices-banner-area .side-menu-area .side-menu-list ul li .pic img{ width:100%; margin:0 auto;}
+marquee{ height:80px; overflow:hidden;}
+.block-left{ width:100%; margin:0 auto;}
+.cms-bottom-pic{ width:100%;}
+.cms-bottom-pic img{ width:100%; margin:0 auto;}
+.right-side-menu-area{ /*margin:30px 0 30px !important; padding:0 0 0;*/ background:#fff; border-radius:4px 4px 0 0; border:1px solid #a2ffff;}
+.right-side-menu-area h4{ background:#3bd7f3;}
+.right-side-menu-area ul{ margin:0; padding:0;}
+.right-side-menu-area ul li{ list-style:none; background:#fff;}
+.right-side-menu-area ul li a{ background:#fff; padding:9px 0; display:block;}
+.right-side-menu-area ul li a:hover{ background:#f4f4f4; padding:9px 0; display:block;}

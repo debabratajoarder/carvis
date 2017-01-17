@@ -105,12 +105,12 @@
         <ul style="padding-bottom:15px;">
             <li style=" border-bottom:none;">
             <div class="logo">
-                <img src="https://www.doctorfox.co.uk/assets/images/logo-trusted-shops.svg" alt="Trusted Shops logo" width="89">
+                <img src="<?php echo $this->Url->build('/'); ?>img/logo-trusted-shops.svg" alt="Trusted Shops logo" width="89">
                 </div>
             </li> 
             <li  style=" border-bottom:none;">
                 <p>Buying drugs via the internet is risky, but not for people using this GP web clinic.</p>
-                 <a class="gallery_item button btn btn-info" href="https://www.doctorfox.co.uk/assets/images/logo-trusted-shops.svg">GP magazine.</a>
+                 <a class="gallery_item button btn btn-info" href="javascript:void(0);">GP magazine.</a>
             </li>            
         </ul>
     </div>
@@ -122,7 +122,7 @@
         <ul style="padding-bottom:15px;">
             <li style="border-bottom:none;">
             <div class="logo"> 
-                <img src="https://www.doctorfox.co.uk/images/1124326.png" alt="Video: How it works">
+                <img src="<?php echo $this->Url->build('/'); ?>img/1124326.png" alt="Video: How it works">
                 </div>
             </li>  
             <li><p><i class="fa fa-check-circle-o" aria-hidden="true"></i> Registered with the Care Quality Commission</p></li>            
@@ -140,7 +140,7 @@
                 <p>Our doctors will review your order information and issue the prescription online direct to our pharmacy.</p>
             </li>
             <li style="border-bottom:none; padding-bottom:15px;"> 
-                <div class="pic"><img src="https://www.doctorfox.co.uk/assets/images/aside-video.jpg" alt="Video: How it works"></div>
+                <div class="pic"><img src="<?php echo $this->Url->build('/'); ?>img/aside-video.jpg" alt="Video: How it works"></div>
             </li>            
         </ul>
     </div>

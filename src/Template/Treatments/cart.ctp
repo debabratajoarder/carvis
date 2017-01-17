@@ -65,7 +65,7 @@
                             <?php //$totCost = $totCost + $SiteSettings['prescfee']; ?>
                             <div class="delivery">
                                 <div class="row">
-                                    <div class="col-md-10">
+                                    <div class="col-md-9">
                                         <div class="delivery-area">
                                             <p><b>Delivery:</b></p>
                                             <div class="delivery-select">
@@ -81,7 +81,7 @@
                                             <div class="clearfix"></div>
                                         </div>
                                     </div>
-                                    <div class="col-md-2 no-padding">
+                                    <div class="col-md-3 no-padding">
                                         <div class="delivery-right">
                                             <p>Delivery: £ <span id="changeDeliveryChargeAmt">2.92</span></p>
                                         </div>
@@ -89,7 +89,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-3 col-md-offset-9">
+                                <div class="col-md-4 col-md-offset-8">
                                     <div class="total-cost">Total cost: £ <span id="totAmtSp"><?php echo sprintf('%0.2f', $totCost + 2.90)?> </span></div>
                                 </div>
                             </div>

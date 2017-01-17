@@ -165,6 +165,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                         <div class="col-md-6 col-sm-6">
                             <?php echo $this->fetch('content'); ?>
                         </div>
+                        
                         <div class="col-md-3 col-sm-3">
                             <?php echo $this->element('rightsidebar'); ?>
                         </div>
@@ -184,7 +185,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>        
         <?php } else { ?>
             <?php echo $this->element('menu'); ?>
             <div class="treatments-prices-banner-area">
