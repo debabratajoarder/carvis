@@ -45,10 +45,10 @@
                     <div class="health-content">
                         <ul>
                             
-                            <?php if(!empty($hcat['treatments'])){ ?>
-                            <?php $slk = 1; foreach($hcat['treatments'] as $hcattr){ ?>
+                            <?php if(!empty($hcat['treatment_categories'])){ ?>
+                            <?php $slk = 1; foreach($hcat['treatment_categories'] as $hcattr){ ?>
                             <?php if($slk < 5 ){ ?>
-                            <li><a href="<?php echo $this->Url->build(["controller" => "Treatments", "action" => "treatmentdetail", $hcattr['slug']]); ?>"><i class="fa fa-check"></i> <?php echo $hcattr['name'];?> </a></li>
+                            <li><a href="<?php echo $this->Url->build(["controller" => "Treatments", "action" => "treatmentdetail", $hcattr['Treatments']['slug']]); ?>"><i class="fa fa-check"></i> <?php echo $hcattr['Treatments']['name'];?> </a></li>
                             <?php } ?>
                             <?php $slk++; } ?>
                             <?php } else { ?>
