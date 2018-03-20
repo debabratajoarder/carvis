@@ -1,107 +1,137 @@
 <div class="clearfix"></div>
-<?php echo $this->element('profile_head');?>
+
 <div class="clearfix"></div>
     <section class="edit-profil-detaildiv">
       <div class="container">
           
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-3">
             
               <?php echo $this->element('side_menu');?>  
           </div>
+      <div class="col-md-9">
+				<div class="edit-profil-rightdiv">
+					<div class="row">
+						<div class="col-md-3">
+							<div class="edit-profil-img">
+                              <?php if(!empty($user->pimg)) :?>
+                                <img src="<?= $this->Url->build('/')?>user_img/<?= $user->pimg ?>" alt="" class="img-responsive center-block img-thumbnail">	
+                            <?php else: ?>
+                                <img src="<?= $this->Url->build('/')?>images/pro-img.jpg" alt="" class="img-responsive center-block img-thumbnail">	
+                            <?php endif;?>
+								
+							</div>
+						</div>
 
-    <div class="col-md-8">
-        <h4 class="mb-4">Latest Reviews</h4>
-          <ul class="command-lst">
-              <?php if(!empty($reviewer)){
-                  
-               foreach($reviewer as $dt){?>
-               
-            <li class="clearfix">
-               <?php if($dt['user']['pimg']!=''){?>
-            <div class="serviceboard-pic">
-	            <div class="img" style="background-image:url('<?php echo $this->Url->build('/user_img/'.$dt['user']['pimg']); ?>')"></div>
-            </div>
-              <?php }else{ ?>
-             <div class="serviceboard-pic">
-             	<div class="img" style="background-image:url('<?php echo $this->Url->build('/user_img/default.png'); ?>')"></div>
-             </div> 
-            
-              <?php } ?>
-              <div class="txt ml-3">
-                <h4 class="mb-0"><?php echo $dt['user']['full_name']?></h4>
-                <p class="time">2 hrs ago</p>
-                <p class="mb-0 font-14"><?php echo $dt['review']?></p>
-                <div class="d-flex font-12">
-                  <span class="mr-2">Rating</span>
-                  <div><span class="stars_r"><?php $avgrating=(($dt['food']+$dt['friendly']+$dt['ambient']+$dt['selection']+$dt['pricey']+$dt['comfortable'])/6);if($avgrating!=''){echo $avgrating;}else{ echo 0;}?></span></div>
-<!--                  <div class="text-theme">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                  </div>-->
-                </div>
-                <div class="reply-btn">
-                  <button type="button" name="button" class="btn btn-success btn-sm mt-2">Reply</button>
-                </div>
-              </div>
-             <?php $i=1; foreach($dt['review_images'] as $dt){?>
-            <div class="img-review">
-              <a href="<?php echo $this->Url->build('/review_img/'.$dt['image_name']); ?>" data-lightbox="image-1" data-title="Image<?php echo $i;?>"><img src="<?php echo $this->Url->build('/review_img/'.$dt['image_name']); ?>" alt=""></a>
-              <div class="arrow"></div>
-            </div>
-             <?php $i++; } ?>
-            </li>
-              <?php } }else{ ?>
-            <li>
-               <div>
-                  Sorry! No review found.
-                
-              </div>
-            </li>
-            
-              <?php } ?>
+						<div class="col-md-9">
+							<div class="edit-profil-txtdiv">
+								<h3 class="h4"><?= $user->full_name ?></h3>	
+								<h4 class="h6">
+									<i class="fa fa-map-marker"></i>
+									<?= $user->address?> <br>
 
-          </ul>
-      </div>
-    </section>
+									<i class="fa fa-phone"></i>	
+									<a href="tel:123456789"><?=$user->phone?></a> <br>
 
- <style>
-   .form-horizontal .control-label {
-	text-align: left;
-    }
-    
-    
-    span.stars_r, span.stars_r span {
-    display: block;
-    background: url(../../carvis/image/stars.png) 0 -16px repeat-x;
-    width: 80px;
-    height: 16px;
-}
+									<i class="fa fa-envelope"></i>	
+									<a href="mailto:<?=$user->email?>"><?=$user->email?></a>	 <br>
+									
+									Rating: 
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>	
+									<i class="fa fa-star-half-empty"></i>
+									<i class="fa fa-star-o"></i>
+								</h4>
 
-span.stars_r span {
-    background-position: 0 0;
-}
-    
-    
-</style>
-<script>
-$.fn.stars_r = function() {
-    return $(this).each(function() {
-        // Get the value
-        var val = parseFloat($(this).html());
-        // Make sure that the value is in 0 - 5 range, multiply to get width
-        var size = Math.max(0, (Math.min(5, val))) * 16;
-        // Create stars holder
-        var $span = $('<span />').width(size);
-        // Replace the numerical value with stars
-        $(this).html($span);
-    });
-}
-$(function() {
-    $('span.stars_r').stars_r();
-});
+								<a href="#" class="add">Add Review</a>
+								<a href="#" class="add">Add Place</a>
+							</div>
+                            <br>
+							
+							<div class="edit-newcustom-div">
+								<div class="media">
+								  <div class="media-left">
+								    <a href="#">
+								      <img class="media-object" src="<?= $this->Url->build('/')?>images/rv.png" alt="">
+								    </a>
+								  </div>
+								  <div class="media-body">
+								    <h5 class="media-heading">John Doe
+								    	<span>2 hrs ago</span>
+								    </h5>
+									<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's. <br>
+									<a href="services.html" class="text-capitalize add">click Here</a>	
+									<span>Rating:
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star-half-o"></i>
+										<i class="fa fa-star-o"></i>
+									</span>  
+									</p>
+								  </div>
+								</div>
+							</div><!-- edit-newreviwe-div -->
+							
+							<div class="edit-newcustom-div">
+								<div class="media">
+								  <div class="media-left">
+								    <a href="#">
+								      <img class="media-object" src="<?= $this->Url->build('/')?>images/rv.png" alt="">
+								    </a>
+								  </div>
+								  <div class="media-body">
+								    <h5 class="media-heading">John Doe
+								    	<span>2 hrs ago</span>
+								    </h5>
+									<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's. <br>
+									<a href="#" class="text-capitalize add">click Here</a>	
+									<span>Rating:
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star-half-o"></i>
+										<i class="fa fa-star-o"></i>
+									</span>  
+									</p>
+								  </div>
+								</div>
+							</div><!-- edit-newreviwe-div -->
+						</div>
+					</div>
+                    <br><br>
+					<div class="row">
+						<div class="edit-newservice-div">
+							<div class="col-md-12">
+								<h3 class="h4">Update Resent Services</h3>
+							</div>
+                         <br><br>
+                        <?php foreach($latest_services as $service):?>
+							<div class="col-md-3">
+								<div class="edit-newimg-div">
+									
+                                    <?php if(!empty($service->image)):?>
+                                    <a href="#" class="thumbnail">
+									    <img src="<?= $this->Url->build('/')?>service_img/<?= $service->image?>" alt="" class="img-responsive center-block">
+                                    </a>
+                                    <?php else:?>
+                                     <a href="#" class="thumbnail">
+                                        <img src="<?= $this->Url->build('/')?>images/ee1.jpg" alt="" class="img-responsive center-block">
+                                    </a>
+                                    <?php endif;?>
+																		
+								</div>
+							</div>
+                            <?php endforeach;?>
+							
+						</div>
+					</div>
+				</div>
+			</div>
 
-</script> 
+            <!-- end of class="col-md-9" -->
+    </div>
+  </div>
+</section>
+

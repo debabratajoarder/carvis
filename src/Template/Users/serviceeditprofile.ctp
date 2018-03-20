@@ -5,11 +5,11 @@
       <div class="container">
           
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-3">
             
               <?php echo $this->element('side_menu');?>  
           </div>
-      <div class="col-md-8">
+      <div class="col-md-9">
         <div class="bg-gray p-3">
             <form method="post" action="<?php echo $this->Url->build(["controller" => "Users","action" => "serviceeditprofile"]);?>">
             <div class="form-group row">
@@ -28,6 +28,24 @@
               <label class="col-sm-2 col-form-label">Phone</label>
               <div class="col-sm-10">
                   <input type="text" class="form-control" name="phone" value="<?php echo $user->phone;?>">
+              </div>
+            </div>
+             <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Admin Name</label>
+              <div class="col-sm-10">
+                  <input type="text" class="form-control" name="name_admin" value="<?php echo $user->name_admin;?>">
+              </div>
+            </div>
+             <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Admin Contact No</label>
+              <div class="col-sm-10">
+                  <input type="text" class="form-control" name="contact_admin" value="<?php echo $user->contact_admin;?>">
+              </div>
+            </div>
+             <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Admin Email</label>
+              <div class="col-sm-10">
+                  <input type="text" class="form-control" name="email_admin" value="<?php echo $user->email_admin;?>">
               </div>
             </div>
               

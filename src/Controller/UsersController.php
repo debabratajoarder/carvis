@@ -42,6 +42,11 @@ class UsersController extends AppController {
         parent::initialize();
         $this->Auth->allow(['signup', 'signin', 'forgotpassword', 'setpassword', 'activeaccount', 'paynow','index','searchlist','servicedetails','ajaxaddtofavourite','fblogin','uploadphoto_add','toptenlist','jimjafav','googlelogin','fetchservice','services','reviews','contactus','subscribe','servicesearch','filtersearch','fetchmodel','servicetype']);
         $this->loadComponent('Paginator');
+        $this->loadModel('ServiceTypes');
+        $this->loadModel('Services');
+        $this->loadModel('ServiceProviderTypes');
+
+
     }
 
     public $uses = array('User', 'Admin');
@@ -53,10 +58,8 @@ class UsersController extends AppController {
     public function index() {
         
         $this->viewBuilder()->layout('default');
-        $this->loadModel('ServiceTypes');
-        $this->loadModel('Makes');
-        $this->loadModel('ServiceProviderTypes');
-        $this->loadModel('Services');
+       
+        $this->loadModel('Makes');       
         $this->loadModel('Visitors');
         $this->loadModel('Sliders');
         $this->loadModel('Reviews');
@@ -1012,7 +1015,9 @@ public function servicedashboard() {
             //pr($user);
          $conn = ConnectionManager::get('default');                      
     //$review = $conn->execute("SELECT avg(pricey) as ap,avg(friendly) as af,avg(comfortable) as ac,avg(ambient) as aa,avg(selection) as ase,avg(food) as afd FROM `reviews` WHERE  `service_provider_id`=$uid and is_active=1 ")->fetchAll('assoc');
-        $this->set(compact('user','title','reviewer'));
+      $latest_services = $this->Services->find()->where(['is_active' => 1])->order(['Services.id'=>'desc'])->limit(4)->toArray();
+          
+       $this->set(compact('user','title','reviewer','latest_services'));
         $this->set('_serialize', ['user']);   
            
         
@@ -1097,8 +1102,11 @@ public function servicedashboard() {
             if ($flag) {
                 //print_r($this->request->data);exit;
                 
+              if(!empty($this->request->data['type_name'])){
+                    $typename = $this->request->data['type_name'];
+
+              }  
                 
-                $typename = $this->request->data['type_name'];
                 $description = $this->request->data['description'];
                 if(!empty($typename)){
                     for ($i = 0; $i < count($typename); $i++) {
@@ -1166,7 +1174,7 @@ public function servicedashboard() {
                 }
                     
                     }
-                    if($this->request->data['document']!=''){ 
+                    if(!empty($this->request->data['document'])){ 
                      $file_doc_name = explode(",",$this->request->data['document']);
                      
                     foreach( $file_doc_name as $img)
@@ -3585,8 +3593,61 @@ public function exportUsers()
 
     }
     
+    public function addservice($service_id=null){
+    $servicetype = $this->ServiceTypes->find()->where(['status' => 1])->toArray();
+
+  
+    if(empty($service_id)){
+        $service = $this->Services->newEntity();
+        $flag = true;
+        $id=$this->Auth->user('id');
+      
+     if ($this->request->is('post')) {
+
+            $this->request->data['provider_id'] = $id;
+            $service = $this->Services->patchEntity($service, $this->request->data);
+
+            if ($rs=$this->Services->save($service)) {
+                    
+                    if(!empty($this->request->data['service_type_id'])){
+                       
+                     $type_id = $this->request->data['service_type_id'];
+                    $min_price= $this->request->data['min_price'];
+                    $max_price= $this->request->data['max_price'];
+                    
+                    for($i=0; $i< count($type_id); $i++){
+                        
+                     $this->request->data['provider_id']=$id; 
+                     $this->request->data['service_id']=$rs->id;  
+                     $this->request->data['type_id']=  $type_id[$i];
+                     $this->request->data['min_price']=  $min_price[$i];
+                     $this->request->data['max_price']=  $max_price[$i];
+                     $type = $this->ServiceProviderTypes->newEntity();
+                     $type = $this->ServiceProviderTypes->patchEntity($type, $this->request->data);
+                     $this->ServiceProviderTypes->save($type);
+                     
+                    }
+                }
+                   
+                  
+                 
+                    $this->Flash->success(_('Service added successfully.'));
+                    
+                    //pr($this->request->data); pr($user); exit;
+                    $this->redirect(['action' => 'addservice']);
+                }
+
+        }
+     
+    }
+
+    $this->set(compact('servicetype'));
+}
     
-    
+    public function servicelist(){
+
+
+    }
     
 
 }
