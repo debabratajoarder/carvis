@@ -19,7 +19,7 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\Mailer\Email;
-
+use Cake\Datasource\ConnectionManager;
 use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
 
@@ -81,7 +81,25 @@ class AppController extends Controller {
             //pr($this->Auth);
         } else {
             //echo "hello";
-            $this->viewBuilder()->layout('default');
+            
+            $controller=$this->request->params["controller"];
+            $action=$this->request->params["action"];
+           if($controller=="Users" and ($action=='signin' or $action=="signup" or $action=="forgotpassword" or $action=='index'or 
+                   $action=="setpassword" or $action=="activeaccount"))
+           {
+                $this->viewBuilder()->layout('default');
+           }
+           elseif ($controller=="Pages") {
+               
+                $this->viewBuilder()->layout('default');
+           
+       }
+       else
+       {
+           $this->viewBuilder()->layout('default');
+           
+       }
+            
             //$this->layout = 'default';
             $this->loadComponent('Auth', [
                 //'authError' => $this->Flash->error('You Are Not Autheticate For This Section. Please Sign in.'),
@@ -104,7 +122,7 @@ class AppController extends Controller {
                 ],
                 'loginAction' => [
                     'controller' => 'Users',
-                    'action' => 'signin'
+                    'action' => 'index'
                 ],
                 'storage' => [
                     'className' => 'Session',
@@ -123,112 +141,49 @@ class AppController extends Controller {
     }
     
     public function beforeRender(Event $event) {
-            $this->loadModel('Treatments');
-            $this->loadModel('Orders');
-            $this->loadModel('Orderdetails');
-            $this->loadModel('Medicines');
-            $this->loadModel('Pils');
+         header("Access-Control-Allow-Origin: *");
         if (isset($this->request->params['prefix']) && $this->request->params['prefix'] == 'admin') {
-            $appTreatment = array();
-            $this->loadModel('Treatments');
-            $query = $this->Treatments->find('all');
-            $appTreatment = $query->where(['parent_id' => 0])->toArray();
-            $this->set(compact('appTreatment'));
-        }
-
-        if (!isset($this->request->params['prefix'])) {
-            if (!$this->request->session()->check('Auth.Doctor')) {
-                $orderExist = array();
-                $countCart = 0;
-                if($this->request->session()->check('Auth.User')){
-                    $uid = $this->request->session()->read('Auth.User.id');
-                    $orderExist = $this->Orders->find()->contain(['Treatments','Orderdetails','Orderdetails.Medicines'])->where(['Orders.user_id' => $uid,'Orders.is_complete' => 0,'Orders.is_cart' => 1])->all();
-                } else {
-                    $curIp = $_SERVER['REMOTE_ADDR'];
-                    $orderExist = $this->Orders->find()->contain(['Treatments','Orderdetails','Orderdetails.Medicines'])->where(['Orders.client_ip' => $curIp, 'Orders.is_login' => 0, 'Orders.is_complete' => 0,'Orders.is_cart' => 1])->all();
+         
+            if ($this->request->session()->check('Auth.Admin')) {
+                $this->loadModel('Admins');
+                $admin_id = $this->request->session()->read('Auth.Admin.id');
+                $admin_details = $this->Admins->find()->where(['Admins.id' => $admin_id])->first();
+                if(!empty($admin_details))
+                {
+                    $admin_permissions = explode(',',$admin_details->permissions);   
+                    $this->set(compact('admin_permissions'));
                 }
-                $countCart = count($orderExist);
-                $this->set(compact('countCart'));
-            } else {
-                $countCart = 0; $this->set(compact('countCart'));
-            } 
+            }
+           
         }
+        
+        else
+        {
+            $this->loadModel("Users");
+            $user_id = $this->request->session()->read('Auth.User.id');
 
-        $appCategoryList = $this->category_list();
-        $appTreatmentList = $this->treatment_list();
+            if(!empty($user_id))
+            {
+               
+                $user_details = $this->Users->find()->where(['Users.id' => $user_id])->first();
+                //print_r($user_details);
+                $interestid= explode(',',$user_details['interest']);
+                $this->loadModel("Interests");
+                $interesrname=$this->Interests->find('all', array('conditions' => array('Interests.id IN' =>$interestid)));
+                //print_r($interestid);
+                $conn = ConnectionManager::get('default');  
+                $provider_avg_review = $conn->execute("SELECT avg(pricey) as ap,avg(friendly) as af,avg(comfortable) as ac,avg(ambient) as aa,avg(selection) as ase,avg(food) as afd FROM `reviews` WHERE  `service_provider_id`=$user_id and is_active=1 ")->fetchAll('assoc');
+            }
+            else{
+                $user_details=array();
+                 $provider_avg_review=array();
+            }
 
-        if (!array_key_exists('_serialize', $this->viewVars) && in_array($this->response->type(), ['application/json', 'application/xml'])) {
-            $this->set('_serialize', true);
-        }
-        $medicineList = $this->medicine_list();
+     }
+        
         $SiteSettings = $this->site_setting();
-        //$this->set('_serialize', true);
-        if (!$this->request->session()->check('Auth.Doctor')) {
-            if($this->request->session()->check('Auth.User')){
-               $userid = $this->request->session()->read('Auth.User.id');
-               $cart = $this->Orders->find()
-                                          ->contain(['Treatments','Orderdetails', 'Orderdetails.Medicines'])
-                                          ->where(['Orders.user_id' => $userid,'Orders.is_complete' => 0,'Orders.is_cart' => 1])
-                                          ->all();
-            } else {
-               $curip = $_SERVER['REMOTE_ADDR'];
-                $cart = $this->Orders->find()
-                                          ->contain(['Treatments','Orderdetails', 'Orderdetails.Medicines'])
-                                          ->where(['Orders.client_ip' => $curip,'Orders.is_complete' => 0,'Orders.is_cart' => 1]) 
-                                          ->all();           
-            }  
-        } else {
-            $cart = array();
-        }
-        
-        $this->loadModel('Deliverycharges');
-        $delcharg = $this->Deliverycharges->find()->hydrate(true)->where(['is_active' => 1])->order(['id' => 'ASC'])->limit(10)->all()->toArray();            
-
-        $this->loadModel('Treatments');
-        $query2 = $this->Treatments->find()
-                                   ->where(['Treatments.is_active' => 1,'Treatments.image !=' => ''])
-                                   ->select(['Treatments.id', 'Treatments.name', 'Treatments.slug', 'Treatments.image'])
-                                   ->order(['Treatments.id' => 'DESC'])
-                                   ->limit(8);
-        $popularTreatments = $query2->all();
-
-        $this->set(compact('SiteSettings', 'appCategoryList', 'appTreatmentList','cart','delcharg','medicineList','popularTreatments'));
-        
-        $appSlider = $this->treatment_slider();  
-        //pr($appSlider); exit;
-        $appCurController = $this->controller;
-        $appCurActiion = $this->action;
-
-        $this->loadModel('Reviews');
-        $rev = $this->Reviews->find()->select(['Reviews.id', 'Reviews.rate'])->all()->toArray();
-        
-        $appReviewsDt = $this->Reviews->find()
-                                   ->where(['Reviews.is_active' => 1])
-                                   ->order(['Reviews.rate' => 'DESC'])
-                                   ->contain(['Users'])
-                                   ->limit(3)->all()->toArray();
-        //$appReviews = $query3->all();
-        //pr($appReviews); exit;
-        
-        $appReviews = $this->Reviews->find()->select(['Reviews.id', 'Reviews.rate'])->all()->toArray();
-        
-        $this->loadModel('Newses');
-        $appNews = $this->Newses->find()->order(['Newses.id' => 'DESC'])->limit(3)->all()->toArray();
-        
-        
-        
-        
-        //pr($appNews); exit;
-        
-        if(empty($rev)){
-            $totReview = 5;
-        } else {
-            $revcount = 0; $revqty = 0;
-            foreach($rev as $dt){ $revqty = $revqty + $dt->rate; $revcount ++; }
-            $totReview = ceil( $revqty / $revcount );
-        }
-        $revCount = count($rev);
-        $this->set(compact('appCurController', 'appCurActiion','appSlider','totReview','appReviews', 'appReviewsDt','revCount','appNews'));
+        //pr($SiteSettings);exit;
+        $this->set(compact('user_details','interesrname','appCurController','SiteSettings', 'appCurActiion','appSlider','totReview','appReviews', 'appReviewsDt','revCount','appNews','provider_avg_review'));
         
         
         
@@ -241,17 +196,17 @@ class AppController extends Controller {
         //$this->set(compact('main_site_setting'));
     }
 
-    public function treatment_slider() {
-        $this->loadModel('Treatments');
-        $this->loadModel('Categories');
-        $data = $this->Treatments->find('all') 
-                ->hydrate(false)
-                ->select(['Treatments.id', 'Treatments.name', 'Treatments.slug', 'Treatments.image'])
-                ->where(['Treatments.is_active' => 1])
-                ->order(['Treatments.name' => 'ASC'])
-                ->limit(20);
-        return $data->toArray();
-    }    
+//    public function treatment_slider() {
+//        $this->loadModel('Treatments');
+//        $this->loadModel('Categories');
+//        $data = $this->Treatments->find('all') 
+//                ->hydrate(false)
+//                ->select(['Treatments.id', 'Treatments.name', 'Treatments.slug', 'Treatments.image'])
+//                ->where(['Treatments.is_active' => 1])
+//                ->order(['Treatments.name' => 'ASC'])
+//                ->limit(20);
+//        return $data->toArray();
+//    }    
     
     
     
@@ -277,7 +232,7 @@ class AppController extends Controller {
                         return $q->select(['Categories.id', 'Categories.name', 'Categories.slug']);
                     }])
                         ->contain(['Medicines' => function($q) {
-                                return $q->select(['Medicines.treatment_id', 'Medicines.id', 'Medicines.title', 'Medicines.slug']);
+                                return $q->select(['Medicines.treatment_id', 'Medicines.id', 'Medicines.title', 'Medicines.slug'])->where(['Medicines.is_active' => '1']);
                             }])
                 //->contain(['Pils' => function($q) { return $q->select(['Medicines.Pils.mid','Pils.id','Pils.title','Pils.slug']); }])
                 ->limit(10000);
@@ -297,7 +252,7 @@ class AppController extends Controller {
     
     
 
-    ///		@@@@@@@@@@@@@@@@@@@@@@###########################################	
+    ///     @@@@@@@@@@@@@@@@@@@@@@###########################################   
 
     public function Send_Cake_Mail($mail_To, $mail_CC, $mail_subject, $mail_Body) {
         $email = new Email('default');
@@ -682,7 +637,8 @@ class AppController extends Controller {
             $NVPString = substr($NVPString, $valuepos + 1, strlen($NVPString));
         }
         return $proArray;
-    }    
+    }   
     
+   
 }
                 

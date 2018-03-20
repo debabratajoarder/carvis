@@ -1,197 +1,672 @@
-<?php
-/**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @since         0.10.0
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
-use Cake\Cache\Cache;
-use Cake\Core\Configure;
-use Cake\Datasource\ConnectionManager;
-use Cake\Error\Debugger;
-use Cake\Network\Exception\NotFoundException;
+<style type="text/css">
+	.justify-div{
+	    width: 56%;
+	    margin: 0 auto 0;
+	}
+	.justify-div > .row > .col-md-3 {
+	    width: 50%;
+	    display: inline-block;
+	    float: left;
+	}
+</style>
 
-$this->layout = false;
+<div class="clearfix"></div>
 
-if (!Configure::read('debug')):
-    throw new NotFoundException('Please replace Pages/home.ctp with your own version.');
-endif;
+<div id="wowslider-container1">
+  <div class="ws_images">
+      <!--Slider start-->
+    <ul>
+        <?php if(!empty($slider)){
+            
+            foreach($slider as $dt){?>
+        
+      <li><img src="<?php echo $this->Url->build('/slider_img/'.$dt->image);?>"  id="wows1_0"/></li>
 
-$cakeDescription = 'CakePHP: the rapid development PHP framework';
-?>
-<!DOCTYPE html>
-<html>
-<head>
-    <?= $this->Html->charset() ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <?= $cakeDescription ?>
-    </title>
-    <?= $this->Html->meta('icon') ?>
-    <?= $this->Html->css('base.css') ?>
-    <?= $this->Html->css('cake.css') ?>
-</head>
-<body class="home">
-    <header>
-        <div class="header-image">
-            <?= $this->Html->image('http://cakephp.org/img/cake-logo.png') ?>
-            <h1>Get the Ovens Ready</h1>
-        </div>
-    </header>
-    <div id="content">
-        <div class="row">
-            <div class="row">
-                <div class="columns large-12 ctp-warning checks">
-                    <p>Please be aware that this page will not be shown if you turn off debug mode unless you disable the NotFoundException in src/Template/Pages/home.ctp.</p>
-                </div>
-            </div>
-            <?php Debugger::checkSecurityKeys(); ?>
-            <div id="url-rewriting-warning" class="columns large-12 url-rewriting checks">
-                <p class="problem">URL rewriting is not properly configured on your server.</p>
-                <p>
-                    1) <a target="_blank" href="http://book.cakephp.org/3.0/en/installation.html#url-rewriting">Help me configure it</a>
-                </p>
-                <p>
-                    2) <a target="_blank" href="http://book.cakephp.org/3.0/en/development/configuration.html#general-configuration">I don't / can't use URL rewriting</a>
-                </p>
-            </div>
-            <div class="columns large-5 platform checks">
-                <?php if (version_compare(PHP_VERSION, '5.5.9', '>=')): ?>
-                    <p class="success">Your version of PHP is 5.5.9 or higher.</p>
-                <?php else: ?>
-                    <p class="problem">Your version of PHP is too low. You need PHP 5.5.9 or higher to use CakePHP.</p>
-                <?php endif; ?>
+        <?php }
+        } ?>
+    </ul>
+      <!--Slider end-->
+  </div>
+</div>
+<div class="clearfix"></div>
 
-                <?php if (extension_loaded('mbstring')): ?>
-                    <p class="success">Your version of PHP has the mbstring extension loaded.</p>
-                <?php else: ?>
-                    <p class="problem">Your version of PHP does NOT have the mbstring extension loaded.</p>;
-                <?php endif; ?>
+<section class="middle-section">
+	<div class="container">
+		<div class="middle-div">
+			<div class="row">
+				<div class="col-md-12">
+					<form action="<?php echo $this->Url->build(["controller" => "Users","action" => "searchlist"]);?>" method="post">
+						<div class="row">
+							<div class="col-md-9">
+							  <div class="form-group">
+							    <label for="st">Search a Service</label>
+							    <input type="text" name="service_type_id" placeholder="Search.." 
+							    class="form-control">
+								<!-- <select class="form-control" id="st" name="service_type_id">
+                                <option selected="selected" value="">Select</option>
+                              <?php foreach($servicetype as $dt){?>
+                              
+                              <option value="<?php echo $dt->id; ?>"><?php echo $dt->type_name; ?></option>
+                              <?php } ?>
+								</select> -->							    
+							  </div>								
+							</div>
 
-                <?php if (extension_loaded('openssl')): ?>
-                    <p class="success">Your version of PHP has the openssl extension loaded.</p>
-                <?php elseif (extension_loaded('mcrypt')): ?>
-                    <p class="success">Your version of PHP has the mcrypt extension loaded.</p>
-                <?php else: ?>
-                    <p class="problem">Your version of PHP does NOT have the openssl or mcrypt extension loaded.</p>
-                <?php endif; ?>
+							<div class="col-md-3">
+							  <div class="form-group">
+							    <label for="lo">Location</label>
+							    <div class="input-group">
+      
+                                  <input class="form-control" id="autocomplete" name="address" type="text" onFocus=geolocate() placeholder="Type Location" />
+							      <div class="input-group-addon">
+							      	<i class="fa fa-map-marker"></i>
+							      </div>
+							    </div>
+							  </div>								
+							</div>
+                                                    
+                              <input  type="hidden" id="lat" name="latitude" />
+                              <input  type="hidden" id="long" name="longitude" />
+						</div> <!-- row -->
 
-                <?php if (extension_loaded('intl')): ?>
-                    <p class="success">Your version of PHP has the intl extension loaded.</p>
-                <?php else: ?>
-                    <p class="problem">Your version of PHP does NOT have the intl extension loaded.</p>
-                <?php endif; ?>
-            </div>
-            <div class="columns large-6 filesystem checks">
-                <?php if (is_writable(TMP)): ?>
-                    <p class="success">Your tmp directory is writable.</p>
-                <?php else: ?>
-                    <p class="problem">Your tmp directory is NOT writable.</p>
-                <?php endif; ?>
+						<div class="justify-div">	
+							<div class="row">
+								<div class="col-md-3">
+								  <div class="form-group">
+								    <label for="sm">Select Make</label>
+									<select class="form-control" id="sm" name="make_id" onclick="fetchmodel(this.value)">
+	                                                                    <option selected="selected" value="">Select</option>
+									   <?php foreach($makes as $dt){?>
+	                                                                  
+	                                                                  <option value="<?php echo $dt->id; ?>"><?php echo $dt->make_name; ?></option>
+	                                                                  <?php } ?>
+									</select>							    
+								  </div>								</div>
+	                            <div class="col-md-3">
+								  <div class="form-group">
+								    <label for="sm">Select Model</label>
+									<select class="form-control" id="model" name="model_id">
+	                                                                    <option  value="">Select</option>
+									   
+	                                                                  
+									</select>							    
+								  </div>								</div>						
+							</div> <!-- row -->
+						</div>
 
-                <?php if (is_writable(LOGS)): ?>
-                    <p class="success">Your logs directory is writable.</p>
-                <?php else: ?>
-                    <p class="problem">Your logs directory is NOT writable.</p>
-                <?php endif; ?>
 
-                <?php $settings = Cache::config('_cake_core_'); ?>
-                <?php if (!empty($settings)): ?>
-                    <p class="success">The <em><?= $settings['className'] ?>Engine</em> is being used for core caching. To change the config edit config/app.php</p>
-                <?php else: ?>
-                    <p class="problem">Your cache is NOT working. Please check the settings in config/app.php</p>
-                <?php endif; ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="columns large-12 database checks">
-                <?php
-                    try {
-                        $connection = ConnectionManager::get('default');
-                        $connected = $connection->connect();
-                    } catch (Exception $connectionError) {
-                        $connected = false;
-                        $errorMsg = $connectionError->getMessage();
-                        if (method_exists($connectionError, 'getAttributes')):
-                            $attributes = $connectionError->getAttributes();
-                            if (isset($errorMsg['message'])):
-                                $errorMsg .= '<br />' . $attributes['message'];
-                            endif;
-                        endif;
+                         <button type="submit">
+							<h4 class="text-center text-uppercase">Search Now</h4>
+						</button>
+					</form>
+				</div>
+			</div> <!-- row -->
+
+
+		</div>
+	</div>
+</section>
+<div class="clearfix"></div>
+
+<section class="most-view-section">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="common-head_div">
+					<h1 class="text-center">Most Viewed Services
+						<span>
+							<img src="<?php echo $this->Url->build('/images/c.png');?>" alt="" class="center-block">
+						</span>	
+					</h1>
+				</div>
+			</div>
+			
+			<div class="most-view-div">
+				<div class="row">
+					<div class="col-md-4">
+						<div class="most-view-innerdiv">
+							<img src="images/c3.png" alt="" class="img-responsive center-block">
+							<h4 class="text-center">Wheel Changing</h4>
+							<p class="text-center">Lorem Ipsum is simply dummy text of the printing and typesetting.</p>
+						</div>
+					</div>
+
+					<div class="col-md-4">
+						<div class="most-view-innerdiv">
+							<img src="images/c1.png" alt="" class="img-responsive center-block">
+							<h4 class="text-center">Car Repair</h4>
+							<p class="text-center">Lorem Ipsum is simply dummy text of the printing and typesetting.</p>
+						</div>						
+					</div>
+
+					<div class="col-md-4">
+						<div class="most-view-innerdiv">
+							<img src="images/c2.png" alt="" class="img-responsive center-block">
+							<h4 class="text-center">Car Inspection</h4>
+							<p class="text-center">Lorem Ipsum is simply dummy text of the printing and typesetting.</p>
+						</div>						
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</section>
+<div class="clearfix"></div>
+
+<section class="top-marchent-section">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="common-head_div">
+					<h1 class="text-center">Top Merchants
+						<span>
+							<img src="images/c.png" alt="" class="center-block">
+						</span>	
+					</h1>
+				</div>
+			</div>			
+		</div>
+
+		<div class="row">
+			<div class="top-marchent-div">
+                            
+                            
+                            
+                            <?php if(!empty($topmarchants)){
+                                //pr($topmarchants);exit;
+                                foreach($topmarchants as $dt){
+                                ?>
+                            
+				<div class="col-md-4">
+					<div class="topmarchent-inner-div">
+						<div class="top-imgdiv">
+                                                    <img src="<?php echo $this->Url->build('/user_img/'.$dt['details'][0]['company']['service_provider_images'][0]['image_name']);?>" alt="" class="center-block" width="326px" height="175px">
+						</div>
+
+						<div class="top-detaildiv">
+
+
+	 						<h5><?php echo $dt['details'][0]['service']['service_name']?>  <br>
+						
+                                                                        <div><span class="stars"><?php if($dt['rating']!=''){echo $dt['rating'];}else{ echo 0; }?></span></div>
+<!--                                                                        <span>(<?php echo $dt['rating']?>)</span>							-->
+	 						</h5>
+
+
+                                                    <!-- 	        				<h5>
+	        					<sup><i class="fa fa-quote-left"></i></sup>  
+	        						<?php if($dt['price'][0]['mp']!="" || $dt['price'][0]['mxp']!=""){ echo ('$'.$dt['price'][0]['mp'].'-'.'$'.$dt['price'][0]['mxp']);}else { ?> <?php echo ('$0-$0');} ?>    
+	        					 <sub><i class="fa fa-quote-right"></i></sub> 
+	        				  </h5> -->
+                                                    
+                                                    
+                                                    
+                                                    
+                                                <?php if($dt['price'][0]['mp']!="" || $dt['price'][0]['mxp']!=""){?>    
+                                                    
+						<h5><span class="label label-success">$<?php echo $dt['price'][0]['mp'];?></span> <span class="fa fa-minus"></span> 
+        					<span class="label label-success">$<?php echo $dt['price'][0]['mxp'];?></span></h5>
+                                                                        
+                                                                        
+                                                <?php }else{ ?> 
+                                                    
+                                                    
+                                               <h5><span class="label label-success">$0</span> <span class="fa fa-minus"></span> 
+        					<span class="label label-success">$0</span></h5>     
+                                                    
+                                                    
+                                                    
+                                                    
+                                                <?php } ?>
+                                                                        
+                                                                        
+
+	 						<h5> Working Hours : <?php echo ($dt['details'][0]['company']['working_hours_from'].'-'.$dt['details'][0]['company']['working_hours_to']);?> <br>
+<!--								<a href="<?php echo $this->Url->build(["controller" => "Users","action" => "servicedetails",$dt['details'][0]['service_id']]);?>" class="btn-sm btn"><i class="fa fa-arrow-down"></i> More Details</a>-->
+	 						</h5>
+
+	 						<h5> Working Days :  <br>
+                                                            
+                                                            <?php $wd=explode(',',$dt['details'][0]['company']['working_days']);
+                                                            foreach($wd as $w){ ?>
+								<span class="label label-default"><?php echo $w;?></span>
+                                                            <?php } ?>
+
+	 						</h5>
+						</div>
+						<a href="<?php echo $this->Url->build(["controller" => "Users","action" => "servicedetails",$dt['details'][0]['service_id']]);?>" class="text-center text-uppercase btn btn-block">View Details</a>
+					</div>
+				</div>
+                            
+                            <?php } }else{ ?>
+                            
+                            <div class="col-md-12">
+                                
+                                Sorry! No results found.
+                                
+                            </div>
+                            
+                            <?php } ?>
+                            
+                            
+                            
+                            
+
+<!--				<div class="col-md-4">
+					<div class="topmarchent-inner-div">
+						<div class="top-imgdiv">
+							<img src="images/t2.jpg" alt="" class="img-responsive center-block">
+						</div>
+						<div class="top-detaildiv">
+	        				<h5>
+	        					<sup><i class="fa fa-quote-left"></i></sup>  
+	        						$0 - $100    
+	        					 <sub><i class="fa fa-quote-right"></i></sub> &nbsp;
+	        				  &lbrack;price range&rbrack; </h5>
+
+	 						<h5>Workshop Name  <br>
+								<span>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star-half-o"></i>
+									<i class="fa fa-star-o"></i>
+									<span>(4.5)</span>
+								</span> 							
+	 						</h5>
+
+	 						<h5> Working Hours : 1 hr - 5hr <br>
+								<a href="#" class="btn-sm btn"><i class="fa fa-arrow-down"></i> More Details</a>
+	 						</h5>
+
+	 						<h5> Working Days :  <br>
+								<span class="label label-default">Mon</span>
+								<span class="label label-default">Tues</span>
+								<span class="label label-default">Wed</span>
+								<span class="label label-default">Thurs</span>
+								<span class="label label-default">Fri</span>
+								<span class="label label-default">Sat</span>
+								<span class="label label-default">Sun</span>
+	 						</h5>
+						</div>
+						<a href="#" class="text-center text-uppercase btn btn-block">View Details</a>
+					</div>					
+				</div>
+
+				<div class="col-md-4">
+					<div class="topmarchent-inner-div">
+						<div class="top-imgdiv">
+							<img src="images/t3.jpg" alt="" class="img-responsive center-block">
+						</div>
+						<div class="top-detaildiv">
+	        				<h5>
+	        					<sup><i class="fa fa-quote-left"></i></sup>  
+	        						$0 - $100    
+	        					 <sub><i class="fa fa-quote-right"></i></sub> &nbsp;
+	        				  &lbrack;price range&rbrack; </h5>
+
+	 						<h5>Workshop Name  <br>
+								<span>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star-half-o"></i>
+									<i class="fa fa-star-o"></i>
+									<span>(4.5)</span>
+								</span> 							
+	 						</h5>
+
+	 						<h5> Working Hours : 1 hr - 5hr <br>
+								<a href="#" class="btn-sm btn"><i class="fa fa-arrow-down"></i> More Details</a>
+	 						</h5>
+
+	 						<h5> Working Days :  <br>
+								<span class="label label-default">Mon</span>
+								<span class="label label-default">Tues</span>
+								<span class="label label-default">Wed</span>
+								<span class="label label-default">Thurs</span>
+								<span class="label label-default">Fri</span>
+								<span class="label label-default">Sat</span>
+								<span class="label label-default">Sun</span>
+	 						</h5>
+						</div>
+						<a href="#" class="text-center text-uppercase btn btn-block">View Details</a>
+					</div>					
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="top-marchent-div">
+				<div class="col-md-4">
+					<div class="topmarchent-inner-div">
+						<div class="top-imgdiv">
+							<img src="images/t4.jpg" alt="" class="img-responsive center-block">
+						</div>
+						<div class="top-detaildiv">
+	        				<h5>
+	        					<sup><i class="fa fa-quote-left"></i></sup>  
+	        						$0 - $100    
+	        					 <sub><i class="fa fa-quote-right"></i></sub> &nbsp;
+	        				  &lbrack;price range&rbrack; </h5>
+
+	 						<h5>Workshop Name  <br>
+								<span>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star-half-o"></i>
+									<i class="fa fa-star-o"></i>
+									<span>(4.5)</span>
+								</span> 							
+	 						</h5>
+
+	 						<h5> Working Hours : 1 hr - 5hr <br>
+								<a href="#" class="btn-sm btn"><i class="fa fa-arrow-down"></i> More Details</a>
+	 						</h5>
+
+	 						<h5> Working Days :  <br>
+								<span class="label label-default">Mon</span>
+								<span class="label label-default">Tues</span>
+								<span class="label label-default">Wed</span>
+								<span class="label label-default">Thurs</span>
+								<span class="label label-default">Fri</span>
+								<span class="label label-default">Sat</span>
+								<span class="label label-default">Sun</span>
+	 						</h5>
+						</div>
+						<a href="#" class="text-center text-uppercase btn btn-block">View Details</a>
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="topmarchent-inner-div">
+						<div class="top-imgdiv">
+							<img src="images/t5.jpg" alt="" class="img-responsive center-block">
+						</div>
+						<div class="top-detaildiv">
+	        				<h5>
+	        					<sup><i class="fa fa-quote-left"></i></sup>  
+	        						$0 - $100    
+	        					 <sub><i class="fa fa-quote-right"></i></sub> &nbsp;
+	        				  &lbrack;price range&rbrack; </h5>
+
+	 						<h5>Workshop Name  <br>
+								<span>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star-half-o"></i>
+									<i class="fa fa-star-o"></i>
+									<span>(4.5)</span>
+								</span> 							
+	 						</h5>
+
+	 						<h5> Working Hours : 1 hr - 5hr <br>
+								<a href="#" class="btn-sm btn"><i class="fa fa-arrow-down"></i> More Details</a>
+	 						</h5>
+
+	 						<h5> Working Days :  <br>
+								<span class="label label-default">Mon</span>
+								<span class="label label-default">Tues</span>
+								<span class="label label-default">Wed</span>
+								<span class="label label-default">Thurs</span>
+								<span class="label label-default">Fri</span>
+								<span class="label label-default">Sat</span>
+								<span class="label label-default">Sun</span>
+	 						</h5>
+						</div>
+						<a href="#" class="text-center text-uppercase btn btn-block">View Details</a>
+					</div>					
+				</div>
+
+				<div class="col-md-4">
+					<div class="topmarchent-inner-div">
+						<div class="top-imgdiv">
+							<img src="images/t6.jpg" alt="" class="img-responsive center-block">
+						</div>
+						<div class="top-detaildiv">
+	        				<h5>
+	        					<sup><i class="fa fa-quote-left"></i></sup>  
+	        						$0 - $100    
+	        					 <sub><i class="fa fa-quote-right"></i></sub> &nbsp;
+	        				  &lbrack;price range&rbrack; </h5>
+
+	 						<h5>Workshop Name  <br>
+								<span>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star-half-o"></i>
+									<i class="fa fa-star-o"></i>
+									<span>(4.5)</span>
+								</span> 							
+	 						</h5>
+
+	 						<h5> Working Hours : 1 hr - 5hr <br>
+								<a href="#" class="btn-sm btn"><i class="fa fa-arrow-down"></i> More Details</a>
+	 						</h5>
+
+	 						<h5> Working Days :  <br>
+								<span class="label label-default">Mon</span>
+								<span class="label label-default">Tues</span>
+								<span class="label label-default">Wed</span>
+								<span class="label label-default">Thurs</span>
+								<span class="label label-default">Fri</span>
+								<span class="label label-default">Sat</span>
+								<span class="label label-default">Sun</span>
+	 						</h5>
+						</div>
+						<a href="#" class="text-center text-uppercase btn btn-block">View Details</a>
+					</div>					
+				</div>-->
+			</div>
+		</div>		
+	</div>
+</section>
+<div class="clearfix"></div>
+
+<section class="banner-section">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="banner-div">
+					<h4 class="text-uppercase">Awesome ! Loving It</h4>
+					<p>Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an </p>
+
+					<img src="images/ts1.png" alt="" class="img-responsive">
+					<h4 class="n-h4">Jhon Wilson  <br>
+						<span>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star-half-empty"></i>
+							<i class="fa fa-star-o"></i>
+						</span>	
+					</h4>
+					<h1 class="pull-right">
+						<span>
+							<i class="fa fa-quote-right"></i>
+						</span>						
+					</h1>
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<div class="banner-div">
+					<h4 class="text-uppercase">Awesome ! Loving It</h4>
+					<p>Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an </p>
+
+					<img src="images/ts2.png" alt="" class="img-responsive">
+					<h4 class="n-h4">Liza Wilson <br>
+						<span>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star-half-empty"></i>
+							<i class="fa fa-star-o"></i>
+						</span>	
+					</h4>
+					<h1 class="pull-right">
+						<span>
+							<i class="fa fa-quote-right"></i>
+						</span>						
+					</h1>
+				</div>				
+			</div>
+
+			<div class="col-md-4">
+				<div class="banner-div">
+					<h4 class="text-uppercase">Awesome ! Loving It</h4>
+					<p>Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an </p>
+
+					<img src="images/ts3.png" alt="" class="img-responsive">
+					<h4 class="n-h4">Roger Wilson <br>
+						<span>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star-half-empty"></i>
+							<i class="fa fa-star-o"></i>
+						</span>	
+					</h4>
+					<h1 class="pull-right">
+						<span>
+							<i class="fa fa-quote-right"></i>
+						</span>						
+					</h1>
+				</div>				
+			</div>
+		</div>
+	</div>
+</section>
+<div class="clearfix"></div>
+
+<style>
+   .form-horizontal .control-label {
+	text-align: left;
+    }
+    
+    
+    span.stars, span.stars span {
+    display: block;
+    background: url(image/stars.png) 0 -16px repeat-x;
+    width: 80px;
+    height: 16px;
+}
+
+span.stars span {
+    background-position: 0 0;
+}
+    
+    
+</style>
+
+<script>
+$.fn.stars = function() {
+    return $(this).each(function() {
+        // Get the value
+        var val = parseFloat($(this).html());
+        // Make sure that the value is in 0 - 5 range, multiply to get width
+        var size = Math.max(0, (Math.min(5, val))) * 16;
+        // Create stars holder
+        var $span = $('<span />').width(size);
+        // Replace the numerical value with stars
+        $(this).html($span);
+    });
+}
+$(function() {
+    $('span.stars').stars();
+});
+
+</script>
+
+
+
+<script>
+   
+    function fetchmodel(id) {
+        
+            $.ajax({
+                url: '<?php echo $this->request->webroot; ?>users/fetchmodel', 
+                cache: false,
+                data: { make_id: id},
+                type: 'post',
+                success: function (response) {
+                    console.log(response);
+                    var obj = jQuery.parseJSON(response);
+
+                    if (obj.Ack == 1) {
+                       
+                        html ="";
+                        for (var i = 0; i < obj.data.length; i++) {
+                          
+                           html= html+"<option value='"+obj.data[i].id+"'>"+obj.data[i].model_name+"</option>";
+                           
+                        }
+                        
+                      $('#model').html(html); 
                     }
-                ?>
-                <?php if ($connected): ?>
-                    <p class="success">CakePHP is able to connect to the database.</p>
-                <?php else: ?>
-                    <p class="problem">CakePHP is NOT able to connect to the database.<br /><br /><?= $errorMsg ?></p>
-                <?php endif; ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="columns large-6">
-                <h3>Editing this Page</h3>
-                <ul>
-                    <li>To change the content of this page, edit: src/Template/Pages/home.ctp.</li>
-                    <li>You can also add some CSS styles for your pages at: webroot/css/.</li>
-                </ul>
-            </div>
-            <div class="columns large-6">
-                <h3>Getting Started</h3>
-                <ul>
-                    <li><a target="_blank" href="http://book.cakephp.org/3.0/en/">CakePHP 3.0 Docs</a></li>
-                    <li><a target="_blank" href="http://book.cakephp.org/3.0/en/tutorials-and-examples/bookmarks/intro.html">The 15 min Bookmarker Tutorial</a></li>
-                    <li><a target="_blank" href="http://book.cakephp.org/3.0/en/tutorials-and-examples/blog/blog.html">The 15 min Blog Tutorial</a></li>
-                </ul>
-                <p>
-            </div>
-        </div>
-        <hr/>
-        <div class="row">
-            <div class="columns large-12">
-                <h3 class="">More about Cake</h3>
-                <p>
-                    CakePHP is a rapid development framework for PHP which uses commonly known design patterns like Front Controller and MVC.
-                </p>
-                <p>
-                    Our primary goal is to provide a structured framework that enables PHP users at all levels to rapidly develop robust web applications, without any loss to flexibility.
-                </p>
-                <ul>
-                    <li><a href="http://cakefoundation.org/">Cake Software Foundation</a>
-                    <ul><li>Promoting development related to CakePHP</li></ul></li>
-                    <li><a href="http://www.cakephp.org">CakePHP</a>
-                    <ul><li>The Rapid Development Framework</li></ul></li>
-                    <li><a href="http://book.cakephp.org/3.0/en/">CakePHP Documentation</a>
-                    <ul><li>Your Rapid Development Cookbook</li></ul></li>
-                    <li><a href="http://api.cakephp.org/3.0/">CakePHP API</a>
-                    <ul><li>Quick Reference</li></ul></li>
-                    <li><a href="http://bakery.cakephp.org">The Bakery</a>
-                    <ul><li>Everything CakePHP</li></ul></li>
-                    <li><a href="http://plugins.cakephp.org">CakePHP plugins repo</a>
-                    <ul><li>A comprehensive list of all CakePHP plugins created by the community</li></ul></li>
-                    <li><a href="https://groups.google.com/group/cake-php">CakePHP Google Group</a>
-                    <ul><li>Community mailing list</li></ul></li>
-                    <li><a href="irc://irc.freenode.net/cakephp">irc.freenode.net #cakephp</a>
-                    <ul><li>Live chat about CakePHP</li></ul></li>
-                    <li><a href="https://github.com/cakephp/">CakePHP Code</a>
-                    <ul><li>For the Development of CakePHP Git repository, Downloads</li></ul></li>
-                    <li><a href="https://github.com/cakephp/cakephp/issues">CakePHP Issues</a>
-                    <ul><li>CakePHP issues and pull requests</li></ul></li>
-                    <li><a href="http://training.cakephp.org/">CakePHP Training</a>
-                    <ul><li>Learn to use the CakePHP framework</li></ul></li>
-                    <li><a href="http://certification.cakephp.org/">CakePHP Certification</a>
-                    <ul><li>Become a certified CakePHP developer</li></ul></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <footer>
-    </footer>
-</body>
-</html>
+                },
+                error: function (response) {
+                    $('#msg').html(response); // display error response from the PHP script
+                }
+            });
+        }
+
+ 
+ 
+
+
+
+
+</script>
+
+
+
+
+
+
+
+<script>     
+      var placeSearch, autocomplete;   
+
+      function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+            {types: ['geocode']});   
+
+             google.maps.event.addListener(autocomplete, 'place_changed', function() {
+		      var place = autocomplete.getPlace();
+		      var lat = place.geometry.location.lat();
+		      var lng = place.geometry.location.lng();
+		      $('#lat').val(lat);
+                      $('#long').val(lng);
+		    
+		    });     
+      }
+
+     
+      function geolocate() { 
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) { 
+            var geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy
+            });
+            
+            autocomplete.setBounds(circle.getBounds());
+          });
+        }
+      }
+    </script>
+
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQ9hl89w8uiMND1-cnmkTVnqGh37TDvvk&libraries=places&callback=initAutocomplete"
+        async defer></script>

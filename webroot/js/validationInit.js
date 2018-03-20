@@ -180,18 +180,45 @@ function formValidation() {
             $(element).parents('.form-group').removeClass('has-error').addClass('has-success');
         }
     });
-
-    $('#user-validate').validate({
+    $('#video-validate').validate({
         rules: {
-            first_name: "required",
-            last_name: "required",
-            phone: "required",
-            username: "required",
-            password: "required",
-            email: {
-                required: true,
-                email: true
-            }
+            home_videourl: "required",
+            video_text: "required",
+        },
+        errorClass: 'help-block',
+        errorElement: 'span',
+        highlight: function (element, errorClass, validClass) {
+            $(element).parents('.form-group').removeClass('has-success').addClass('has-error');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).parents('.form-group').removeClass('has-error').addClass('has-success');
+        }
+    });
+    $('#video-validate').validate({
+        rules: {
+            home_videourl: "required",
+            video_text: "required",
+        },
+        errorClass: 'help-block',
+        errorElement: 'span',
+        highlight: function (element, errorClass, validClass) {
+            $(element).parents('.form-group').removeClass('has-success').addClass('has-error');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).parents('.form-group').removeClass('has-error').addClass('has-success');
+        }
+    });
+
+    $('#footer-content-valid').validate({
+        rules: {
+            footer_text1: "required",
+            footer_logo_link: "required",
+            facebook_url: "required",
+            twitter_url: "required",
+            gplus_url: "required",
+            footer_logo_link: "required",
+            
+            footer_logo2_link: "required",
 
         },
         errorClass: 'help-block',
@@ -209,13 +236,35 @@ function formValidation() {
     $('#siteset-validate').validate({
         rules: {
             site_title: "required",
-            paypal_email: "required",
             contact_email: "required",
             twitter_url: "required",
             linkedIn_url: "required",
             facebook_url: "required",
             gplus_url: "required",
             youtube_url: "required"
+        },
+        errorClass: 'help-block',
+        errorElement: 'span',
+        highlight: function (element, errorClass, validClass) {
+            $(element).parents('.form-group').removeClass('has-success').addClass('has-error');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).parents('.form-group').removeClass('has-error').addClass('has-success');
+        }
+    });
+    $('#siteset-homecontent').validate({
+        rules: {
+            bannerheading: "required",
+            bannner_subtxt1: "required",
+            bannner_subtxt2: "required",
+            bannner_subtxt3: "required",
+            howit_heading1: "required",
+            howit_text1: "required",
+            howit_heading2: "required",
+            howit_text2: "required",
+            howit_heading3: "required",
+            howit_text3: "required",
+            bannerheading2:"required"
         },
         errorClass: 'help-block',
         errorElement: 'span',
@@ -411,6 +460,9 @@ function formValidation() {
             $(element).parents('.form-group').removeClass('has-error').addClass('has-success');
         }
     });     
-     
+    
+    
+    
+    
     
 }

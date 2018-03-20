@@ -18,6 +18,7 @@ class ContentsController extends AppController {
 
     }
 
+    // CMS page in Fronend
     public function index($slug = null) {
         $this->viewBuilder()->layout('default');
         $mData = $this->Contents->find()->where(['Contents.page_slug' => $slug])->first()->toArray();
@@ -32,6 +33,7 @@ class ContentsController extends AppController {
         $this->render($slug);
     }
 
+    // Reviews Listing in Frontend
     public function reviews($slug = null) {
         $this->viewBuilder()->layout('default');
         
@@ -40,5 +42,7 @@ class ContentsController extends AppController {
         $this->set('review', $this->Paginator->paginate($this->Reviews, [ 'limit' => 15, 'contain' => ['Users'], 'order' => [ 'id' => 'DESC'], 'conditions' => [ 'Reviews.is_active' => 1]]));   
 
     }
+    
+    
 
 }

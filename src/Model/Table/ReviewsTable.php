@@ -2,19 +2,18 @@
 
 namespace App\Model\Table;
 
-use App\Model\Entity\Order;
+use App\Model\Entity\Customer;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Orders Model
+ * Customers Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Customers
- * @property \Cake\ORM\Association\BelongsTo $Addresses
- * @property \Cake\ORM\Association\BelongsTo $Runs
- * @property \Cake\ORM\Association\HasMany $Orderdetails
+ * @property \Cake\ORM\Association\HasMany $Addresses
+ * @property \Cake\ORM\Association\HasMany $Orders
+ * @property \Cake\ORM\Association\HasMany $Templates
  */
 class ReviewsTable extends Table {
 
@@ -28,32 +27,47 @@ class ReviewsTable extends Table {
         parent::initialize($config);
 
         $this->table('reviews');
-        $this->displayField('id');
+        
         $this->primaryKey('id');
         
         
-        //$this->belongsTo('Treatments', [ 'foreignKey' => 'treatment_id']);
-        $this->belongsTo('Users', [ 'foreignKey' => 'user_id']);
-        //$this->hasMany('Orderdetails', ['foreignKey' => 'ord_id']);
-        
-        
-        //$this->addBehavior('Timestamp');
+        $this->belongsTo('Services', ['foreignKey' => 'service_id']);
+         
+          
+        $this->belongsTo('Users', [
+            'className' => 'Users',
+            
+        ]);
 
+        $this->belongsTo('Companies', [
+            'className' => 'Users',
+            'foreignKey' => ['service_provider_id']
+            
+        ]);
+        
+        
+        $this->hasMany('ReviewImages', [
+            'className' => 'ReviewImages',
+            'foreignKey' => ['review_id']
+            
+        ]);
+        
+        
+        
+   }
+          
         /*
-          $this->belongsTo('Customers', [
+          $this->hasMany('Addresses', [
           'foreignKey' => 'customer_id'
           ]);
-          $this->belongsTo('Addresses', [
-          'foreignKey' => 'address_id'
+          $this->hasMany('Orders', [
+          'foreignKey' => 'customer_id'
           ]);
-          $this->belongsTo('Runs', [
-          'foreignKey' => 'run_id'
-          ]);
-          $this->hasMany('Orderdetails', [
-          'foreignKey' => 'order_id'
+          $this->hasMany('Templates', [
+          'foreignKey' => 'customer_id'
           ]);
          */
-    }
+    
 
     /**
      * Default validation rules.
@@ -61,6 +75,8 @@ class ReviewsTable extends Table {
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
+
+
     /**
      * Returns a rules checker object that will be used for validating
      * application integrity.
@@ -68,4 +84,11 @@ class ReviewsTable extends Table {
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
+    
+    public function buildRules(RulesChecker $rules) {
+        //$rules->add($rules->isUnique(['slug'], 'Slug Already Used Try with another'));
+        //$rules->add($rules->isUnique(['username'], 'Username Already Used Try with another'));
+        return $rules;
+    }
+
 }

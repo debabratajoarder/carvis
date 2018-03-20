@@ -69,7 +69,7 @@ class ContentsController extends AppController {
                 $this->Flash->error(__('Content can not be null. Please, try again.')); $flag = false;
             }            
             
-            if($flag){               
+            if($flag){  
                 $content = $this->Contents->patchEntity($content, $this->request->data);
                 if ($this->Contents->save($content)) {
                     $this->Flash->success(__('The Content has been updated.'));

@@ -1,328 +1,690 @@
-<?php
-/**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @since         0.10.0
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
-$cakeDescription = 'CakePHP: the rapid development php framework';
-?>
+<?php 
+
+$userid = $this->request->session()->read('Auth.User.id');
+$admin_checkid = $this->request->session()->read('Auth.User.is_admin');
+
+$base_url= "http://111.93.169.90/team6/carvis/";
 
 
-<!DOCTYPE HTML>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+echo $this->element('head');?> 
 
-        <?php $filePathf = WWW_ROOT . 'logo' . DS . $SiteSettings['site_favicon']; ?>
-        <?php if ($SiteSettings['site_favicon'] != "" && file_exists($filePathf)) { ?>
-            <?php echo $this->Html->meta('favicon.ico', 'logo/' . $SiteSettings['site_favicon'], array('type' => 'icon')); ?>
-        <?php } else { ?>
-            <?php echo $this->Html->meta('favicon.ico', 'img/unnamed.png', array('type' => 'icon')); ?>
-        <?php } ?>         
-        
 
-        <?php if(empty($pageSeo)){ ?>
-            <title> <?php echo $SiteSettings['site_meta_title'] ?> </title>
-            <meta name="description" content="<?php echo $SiteSettings['site_meta_description'] ?>" />   
-            <meta name="keywords" content="<?php echo $SiteSettings['site_meta_key'] ?>" />            
-        <?php } else if(!empty($pageSeo)){ ?>
-            <title> <?php echo $pageSeo['site_meta_title'] != "" ? $pageSeo['site_meta_title'] : 'Ascot Pharmacy' ?> </title>
-            <meta name="description" content="<?php echo $pageSeo['site_meta_description'] ?>" />   
-            <meta name="keywords" content="<?php echo $pageSeo['site_meta_key'] ?>" />        
-        <?php } else { ?>
-            <title> Ascot Pharmacy </title>
-            <meta name="description" content="" />   
-            <meta name="keywords" content="" />             
-        <?php } ?>
-        
+  <div class="top-div">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 hidden-sm hidden-xs"></div>
+			<div class="col-md-3">
+                            
+                            <?php if(isset($userid) && $admin_checkid!=1){?> 
+                            
+                            <div class="login-div">
+                                <a href="<?php echo $this->Url->build(["controller" => "Users","action" => "signout"]);?>"><button type="button" class="bttn">Log Out</button></a>
+					|
+                                        <?php  if($user_details['utype'] == 1){ ?>
+                                        <a href="<?php echo $this->Url->build(["controller" => "Users","action" => "dashboard"]);?>"><button type="button" class="bttn">My Dashboard</button></a>
+                                        
+                                        <?php }else{ ?>
+                                        
+                                        <a href="<?php echo $this->Url->build(["controller" => "Users","action" => "servicedashboard"]);?>"><button type="button" class="bttn">My Dashboard</button></a>
+                                        <?php } ?>
+				</div>
+                            
+                            
+                            
+                            <?php }else{ ?>
+                            
+                            
+				<div class="login-div">
+					<button type="button" class="bttn" data-toggle="modal" data-target="#myModal">Login</button>
+					|
+					<button type="button" class="bttn" data-toggle="modal" data-target="#myModal_1">Register</button>
+				</div>
+                            
+                            <?php } ?>
+                            
+                            
+                            
+                            
+                            
+                          <!--For forget password-->
+                          
+                          <div id="myModal_forget" class="modal fade" role="dialog">
+				  <div class="modal-dialog">
+				    <!-- Modal content-->
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				        <h4 class="modal-title">Forgot Password <br>
+				        	<!--<span>Don't have an account?  <span>Register</span> here!</span>-->
+				        </h4>
+				      </div>
+				      <div class="modal-body">
+						<div class="login-form-div">
+							<div class="row">
+								<div class="col-md-6">
+									<form style="text-align: center;" class="form-wrapper rightFrmContainer" id="frmLogin" accept-charset="utf-8" method="post" action="<?php echo $this->Url->build(["controller" => "Users","action" => "forgotpassword"]);?>">
+										<div class="form-group">
+											<div class="input-group">
+												<div class="input-group-addon">
+													<i class="fa fa-envelope"></i>
+												</div>
+												<input type="email" name="email" class="form-control" placeholder="Email">
+											</div>
+										</div>
 
-        
-        
-        
-        
-        <?php echo $this->Html->css('bootstrap.css') ?>
-        <?php echo $this->Html->css('bootstrap-theme.css') ?>
-        <?php echo $this->Html->css('/font-awesome/css/font-awesome.css') ?>
-        <?php echo $this->Html->css('jquery.bxslider.css') ?>
-        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+										
 
-        <!--  ################################## CSS Added By Developer Start Here  ############################################  -->    
-        <?php echo $this->Html->css('/plugins/validationengine/css/validationEngine.jquery.css') ?>
-        <?php echo $this->Html->css('/plugins/dataTables/dataTables.bootstrap.css') ?>
-        <!-- (-3) link from Admin Panel -->
+											
 
-        <!-- (-2) link from Admin Panel -->
-        <?php echo $this->Html->css('admin/jquery-ui.css') ?> 
+										<div class="form-group">
+											<div class="row">
+												<div class="col-sm-6 hidden-xs hidden-sm"></div>
 
-        
-        <?php echo $this->Html->css('/plugins/uniform/themes/default/css/uniform.default.css') ?>
-        <?php echo $this->Html->css('/plugins/inputlimiter/jquery.inputlimiter.1.0.css') ?>
-        <?php echo $this->Html->css('/plugins/chosen/chosen.min.css') ?>
+												<div class="col-sm-6">
+                                                                                                    <button type="submit">
+														<h4 class="text-center text-uppercase">Send</h4>
+													</button>													
+												</div>
+											</div>
+										</div>
 
-        <?php echo $this->Html->css('/plugins/colorpicker/css/colorpicker.css') ?>
-        <?php echo $this->Html->css('/plugins/tagsinput/jquery.tagsinput.css') ?>
-        <?php echo $this->Html->css('/plugins/daterangepicker/daterangepicker-bs3.css') ?>    
+										<div class="form-group">
+											<div class="row">
+												<div class="col-sm-8">
+													
+												</div>
+												<div class="col-sm-2 hidden-xs hidden-sm"></div>
+											</div>
+										</div>
 
-        <?php echo $this->Html->css('/plugins/datepicker/css/datepicker.css') ?>
-        <?php echo $this->Html->css('/plugins/timepicker/css/bootstrap-timepicker.min.css') ?>
-        <?php echo $this->Html->css('/plugins/switch/static/stylesheets/bootstrap-switch.css') ?>     
-        
-        <?php echo  $this->Html->css('admin/bootstrap-fileupload.min.css') ?>
-        <?php echo  $this->Html->css('admin/layout2.css') ?> 
-        <!--  ################################## CSS Added By Developer End Here  ############################################  -->    
 
-        <?php echo $this->Html->script('/plugins/jquery-2.0.3.min.js') ?>
+									</form>	
+								</div>
 
-        <?php //echo $this->Html->script('jquery.min.js') ?>   
-        <?php echo $this->Html->script('bootstrap.min.js') ?>
-        <?php echo $this->Html->script('jquery.bxslider.js') ?>
-        <?php echo $this->Html->script('masonry.js') ?>  
-        
-        <?php echo $this->Html->script('/plugins/dataTables/jquery.dataTables.js') ?>
-        <?php echo $this->Html->script('/plugins/dataTables/dataTables.bootstrap.js') ?>
-        
-        <?php echo $this->Html->script('/plugins/validationengine/js/jquery.validationEngine.js') ?>
-        <?php echo $this->Html->script('/plugins/validationengine/js/languages/jquery.validationEngine-en.js') ?>
-        <?php echo $this->Html->script('/plugins/jquery-validation-1.11.1/dist/jquery.validate.min.js') ?>
-        <?php echo $this->Html->script('validationInit.js') ?>
-        <script> $(function(){ formValidation(); }); </script>
+								<div class="col-md-6">
+									<div class="welcome-div">
+										<h2>Welcome</h2>
+										<p class="text-left col-sm-10 col-sm-offset-3">Please enter your email to reset your password.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+				      </div>
+				    </div>
 
-        <!-- <script> $(document).ready(function () { $('#dataTables-example').dataTable(); }); </script> -->
+				  </div>
+				</div>
+                          
+                          
+                          
+                          
+                          <!--forget password-->
+                            
+                            
 
-        <?php echo $this->Html->script('admin/jquery-ui.min.js') ?>
-        <?php echo $this->Html->script('/plugins/uniform/jquery.uniform.min.js') ?>
-        <?php echo $this->Html->script('/plugins/inputlimiter/jquery.inputlimiter.1.3.1.min.js') ?>
-        <?php echo $this->Html->script('/plugins/chosen/chosen.jquery.min.js') ?>
+				<!-- Modal-1 login modal -->
+				<div id="myModal" class="modal fade" role="dialog">
+				  <div class="modal-dialog">
+				    <!-- Modal content-->
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				        <h4 class="modal-title">LogIn <br>
+				        	<!--<span>Don't have an account?  <span>Register</span> here!</span>-->
+				        </h4>
+				      </div>
+				      <div class="modal-body">
+						<div class="login-form-div">
+							<div class="row">
+								<div class="col-md-6">
+									<form style="text-align: center;" class="form-wrapper rightFrmContainer" id="frmLogin" accept-charset="utf-8" method="post" action="<?php echo $this->Url->build(["controller" => "Users","action" => "signin"]);?>">
+										<div class="form-group">
+											<div class="input-group">
+												<div class="input-group-addon">
+													<i class="fa fa-envelope"></i>
+												</div>
+												<input type="email" name="email" class="form-control" placeholder="Email">
+											</div>
+										</div>
 
-        <?php echo $this->Html->script('/plugins/tagsinput/jquery.tagsinput.min.js') ?>
-        <?php echo $this->Html->script('/plugins/validVal/js/jquery.validVal.min.js') ?>
-        <?php echo $this->Html->script('/plugins/daterangepicker/daterangepicker.js') ?>
-        <?php echo $this->Html->script('/plugins/daterangepicker/moment.min.js') ?>
-        <?php echo $this->Html->script('/plugins/datepicker/js/bootstrap-datepicker.js') ?>
-        <?php echo $this->Html->script('/plugins/timepicker/js/bootstrap-timepicker.min.js') ?>    
-        <?php echo $this->Html->script('masonry.pkgd.min.js') ?> 
-        <?php echo $this->Html->script('/plugins/jasny/js/bootstrap-fileupload.js') ?>
-        
-        
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        
-        <?php echo $this->Html->script('jquery.raty-fa.js') ?>
-        
-        <style>
-            .message.success{
-                background: #5cb85c none repeat scroll 0 0;
-                color: #fff;
-                font-weight: bold;
-                padding: 12px 10px;
-                text-align: center;
-                font-size : 18px;
-            }
-            .message.error{
-                background: #fa693c none repeat scroll 0 0;
-                color: #fff;
-                font-weight: bold;
-                padding: 12px 10px;
-                text-align: center;
-                font-size : 18px;
-            }
-        </style>    
-            
-        
-        
-    </head>
-    <body>
-        <?php echo $this->Flash->render() ?>
-        <?php echo $this->Flash->render('success') ?>
-        <?php echo $this->Flash->render('error') ?>
+										<div class="form-group">
+											<div class="input-group">
+												<div class="input-group-addon">
+													<i class="fa fa-unlock-alt"></i>
+												</div>
+                                                                                            <input type="password" name="password" class="form-control" placeholder="Password">
+											</div>
+										</div>
 
-        <?php echo $this->element('header'); ?>
+										<div class="form-group">
+											<div class="row">
+												<div class="col-sm-6">
+											      <div class="checkbox">
+											        <label>
+											          <input type="checkbox"> Remember Me
+											        </label>
+											      </div>													
+												</div>
 
-        <?php if ($this->request->params['controller'] == "Pages" && $this->request->params['action'] == "home") { ?>
+												<div class="col-sm-6">
+                                                                                                    <h5 class="text-right"><a href="#" onclick="forget()">Forgot password?</a></h5>
+												</div>
+											</div>
+										</div>	
+
+										<div class="form-group">
+											<div class="row">
+												<div class="col-sm-6 hidden-xs hidden-sm"></div>
+
+												<div class="col-sm-6">
+                                                                                                    <button type="submit">
+														<h4 class="text-center text-uppercase">login</h4>
+													</button>													
+												</div>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<div class="row">
+												<div class="col-sm-8">
+													<div class="bottom-div">
+														<ul class="nav">
+															<li><h6>Or Login With:</h6></li>
+
+															<li>
+																<a href="#" class="no-padding flogin">
+																	<img src="<?php echo $this->request->webroot;?>images/ff.png" alt="" class="img-responsive"></a>
+															</li>
+
+															<li>
+																<a href="#" class="no-padding" onclick="google_login()">
+																	<img src="<?php echo $this->request->webroot;?>images/tw.png" alt="" class="img-responsive"></a>
+															</li>
+														</ul>
+													</div>
+												</div>
+												<div class="col-sm-2 hidden-xs hidden-sm"></div>
+											</div>
+										</div>
+
+
+									</form>	
+								</div>
+
+								<div class="col-md-6">
+									<div class="welcome-div">
+										<h2>Welcome</h2>
+										<p class="text-left col-sm-10 col-sm-offset-3">Please log in to continue using our services.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+				      </div>
+				    </div>
+
+				  </div>
+				</div><!-- Modal-1 -->
+
+				<!-- Modal-2 sign up modal -->
+				<div id="myModal_1" class="modal fade" role="dialog">
+				  <div class="modal-dialog">
+				    <!-- Modal content-->
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				        <h4 class="modal-title">Register <br>
+                                            <!--<span>Already have an account? <span>Login</span> here!</span>-->
+				        </h4>
+				      </div>
+				      <div class="modal-body">
+						<div class="login-form-div">
+							<div class="row">
+								<div class="col-md-6">
+									<form action="<?php echo $this->Url->build(["controller" => "Users","action" => "signup"]);?>" method="post" id="frmRegister">
+										<div class="form-group">
+											<div class="input-group">
+												<div class="input-group-addon">
+													<i class="fa fa-font"></i>
+												</div>
+												<input type="text" name="full_name" class="form-control" placeholder="Full Name">
+											</div>
+										</div>
+
+										<div class="form-group">
+											<div class="input-group">
+												<div class="input-group-addon">
+													<i class="fa fa-user"></i>
+												</div>
+                                                                                            <select class="form-control" name="utype">
+                                                                                                <option value="">Select User Type</option>
+                                                                                                <option value="1">Consumer</option>
+                                                                                                <option value="2">Merchant</option>
+                                                                                                
+                                                                                            </select>
+											</div>
+										</div>										
+
+										<div class="form-group">
+											<div class="input-group">
+												<div class="input-group-addon">
+													<i class="fa fa-envelope"></i>
+												</div>
+												<input type="email" class="form-control" placeholder="Email" name="email">
+											</div>
+										</div>
+
+										<div class="form-group">
+											<div class="input-group">
+												<div class="input-group-addon">
+													<i class="fa fa-lock"></i>
+												</div>
+												<input type="password" class="form-control" placeholder="Password" name="password">
+											</div>
+										</div>
+                                                                            
+                                                                            
+                                                                            <div class="form-group">
+											<div class="input-group">
+												<div class="input-group-addon">
+													<i class="fa fa-lock"></i>
+												</div>
+												<input type="password" autocomplete="off" class="form-control" placeholder="Confirm password" size="30" maxlength="100"  name="con_password">
+											</div>
+										</div>
+                                                                            
+                                                                            
+
+										<div class="form-group">
+											<div class="input-group">
+												<div class="input-group-addon">
+													<i class="fa fa-mobile"></i>
+												</div>
+												<input type="tel" class="form-control" placeholder="Contact Number" name="phone">
+											</div>
+										</div>
+
+										<div class="form-group">
+											<div class="row">
+												<div class="col-sm-6 hidden-xs hidden-sm"></div>
+
+												<div class="col-sm-6">
+													<button type="submit">
+														<h4 class="text-center text-uppercase">Register</h4>
+													</button>													
+												</div>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<div class="row">
+												<div class="col-sm-8">
+													<div class="bottom-div">
+														<ul class="nav">
+															<li><h6>Or Login With:</h6></li>
+
+															<li>
+																<a href="#" class="no-padding flogin">
+																	<img src="<?php echo $this->request->webroot;?>images/ff.png" alt="" class="img-responsive"></a>
+															</li>
+
+															<li>
+																<a href="#" class="no-padding">
+																	<img src="<?php echo $this->request->webroot;?>images/tw.png" alt="" class="img-responsive"></a>
+															</li>
+														</ul>
+													</div>
+												</div>
+												<div class="col-sm-2 hidden-xs hidden-sm"></div>
+											</div>
+										</div>
+
+
+									</form>	
+								</div>
+
+								<div class="col-md-6">
+									<div class="welcome-div">
+										<h2>Welcome</h2>
+										<p class="text-left col-sm-10 col-sm-offset-3">Please register to continue using our services.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+				      </div>
+				    </div>
+				  </div>
+				</div><!-- Modal-2 -->	
+			</div>
+
+			<div class="col-md-3">
+				<div class="marchent-div">
+					<h4 class="text-center">Become A Merchant</h4>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="clearfix"></div>
+
+<header>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2">
+				<div class="logo-div">
+					<a href="<?php echo $this->request->webroot;?>"><img src="<?php echo $this->request->webroot;?>images/logo.png" alt="" class="img-responsive center-block"></a>
+				</div>				
+			</div>
+
+			<div class="col-md-7">
+				<div class="menu-div">
+			     <nav class="navbar navbar-default">
+			      <div class="container-fluid">
+			       <div class="navbar-header">
+			        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collaspe-1" aria-expended="false">
+			        	<span class="sr-only">Toggle navigation</span>
+			            <span class="icon-bar"></span>
+			            <span class="icon-bar"></span>
+			            <span class="icon-bar"></span>
+			         </button> 
+			         <h4 class="text-left text-capitalize hidden-md hidden-lg visible-xs visible-sm navbar-brand">
+			         	<img src="<?php echo $this->request->webroot;?>images/sw.gif" alt="" class="img-responsive" width="34" height="34">
+			         	Carvis
+			         </h4>  
+			       </div><!--navbar-header -->
+			       
+			       <div class="collapse navbar-collapse" id="bs-example-navbar-collaspe-1">
+			        <ul class="nav navbar-nav">
+			          <li <?php if ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'index'){?> class="active_new" <?php } ?> ><a href="<?php echo $this->request->webroot;?>">home</a></li>
+			          <li <?php if ($this->request->params['controller'] == 'contents' && $this->request->params['action'] == 'index'){?> class="active_new" <?php } ?>><a href="<?php echo $this->Url->build(["controller" => "contents", "about-us"]); ?>">about us</a></li>
+			          <li <?php if ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'servicetype'){?> class="active_new" <?php } ?>>
+			     <a href="<?php echo $this->request->webroot;?>users/servicetype">services</a>
+			          	
+			          </li>
+			         			          <li <?php if ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'reviews'){?> class="active_new" <?php } ?>><a href="<?php echo $this->request->webroot;?>users/reviews">reviews</a></li> 
+ <li><a href="#">blog</a></li>
+
+			          <li <?php if ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'contactus'){?> class="active_new" <?php } ?>><a href="<?php echo $this->request->webroot;?>users/contactus">contact Us</a></li>            
+			        </ul>
+			       </div>
+			      </div>
+			     </nav>
+			    </div>					
+			</div>
+
+			<div class="col-md-3">
+				<div class="callus-div">
+					<div class="cl_img-div">
+						<img src="<?php echo $this->request->webroot;?>images/clk.png" alt="" class="img-responsive">
+					</div>
+					<h4>Call Us Now  <br>
+						<a href="tel:<?php echo $SiteSettings['contact_phone'];?>"><?php echo $SiteSettings['contact_phone'];?></a>
+					</h4>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>    
+ <div id="AjaxMsgFrom"></div>       
+<?php echo $this->Flash->render() ?>
+<?php echo $this->Flash->render('success') ?>
+<?php echo $this->Flash->render('error') ?>
+<?php echo $this->fetch('content');?>
+<?php echo $this->element('footer');?> 
         
-             <?php echo $this->element('home_banner'); ?>
-             <?php echo $this->fetch('content'); ?>         
-        <?php } else if (($this->request->params['controller'] == "Users" && $this->request->params['action'] == "signin") || ($this->request->params['controller'] == "Users" && $this->request->params['action'] == "signup") || ($this->request->params['controller'] == "Users" && $this->request->params['action'] == "forgotpassword") || ($this->request->params['controller'] == "Users" && $this->request->params['action'] == "setpassword") || ($this->request->params['controller'] == "Users" && $this->request->params['action'] == "checkout") || ($this->request->params['controller'] == "Users" && $this->request->params['action'] == "addprescription") ) { ?>
-            <?php echo $this->element('menu'); ?>
-            <?php echo $this->fetch('content'); ?>      
-        <?php } else if ($this->request->params['controller'] == "Treatments") { ?>
-            <?php echo $this->element('menu'); ?>
-            <div class="treatments-prices-banner-area">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-3 col-sm-3">
-                            <?php echo $this->element('leftsidebar'); ?>
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <?php echo $this->fetch('content'); ?>
-                        </div>
+ 
+    
+    <script type="text/javascript">
+    $( document ).ready( function () {
+//alert('ok');
+    $( "#frmRegister" ).validate({
+        //alert('ok');
+        rules: {
+          'full_name': "required",
+          
+          'phone': "required",
+          'utype': "required",
+          'email': {
+            required: true           
+          },
+                  
+          'password': {
+            required: true,
+            minlength: 6
+          },
+          'con_password': {
+            required: true,
+            minlength: 6
+          }
+          
+        },
+        messages: {
+          'utype': "Please choose user type", 
+          'full_name': "Please enter your firstname",
+          
+          'email': "Please enter a valid email address", 
+          'phone': "Please enter a valid mobileno.", 
+                 
+          'password': {
+            required: "Please provide a password",
+            minlength: "Your password must be at least 6 characters long"
+          },
+          'con_password': {
+            required: "Please re-type  password",
+            minlength: "Your password must be same as above password"
+          }
+        },
+        
+       
+      });
+
+
+
+$( "#frmLogin" ).validate({
+        //alert('ok');
+        rules: {
+          
+          'email': {
+            required: true           
+          },
+                  
+          'password': {
+            required: true,
+            minlength: 6
+          }
+         
+        },
+        messages: {
+          
+          'email': "Please enter a valid email address",
+         
+                 
+          'password': {
+            required: "Please provide a password",
+            minlength: "Your password must be at least 6 characters long"
+          }
+          
+        },
+       
+      });
+
+    });
+
+
+</script>
+<script>
+    
+    function forget(){
+        
+        $('#myModal').modal('hide');
+         $('#myModal_forget').modal('show');
+        
+        
+    }
+</script> 
+
+<script>
+
+
+ /*************** Sign Up Facebook ***********************/
+            $.getScript('//connect.facebook.net/en_US/all.js', function(){
+                FB.init({ appId: '550300998642584'});    
+                $(".flogin").on("click", function(e){ 
+                    
+                    
+                 e.preventDefault();    
+                 FB.login(function(response){
+                  // FB Login Failed //
+                  if(!response || response.status !== 'connected') {
+                   alert("Given account information are not authorised", "Facebook says");
+                  }else{
+                   // FB Login Successfull //
+                   FB.api('/me',{fields: ['email','name']}, function(fbdata){ 
+                   //alert(fbdata) ;    
+                   //console.log(fbdata); 
+                   var name1 = fbdata.name;
+                   var name = name1.split(' ');
+                    var fb_user_id = fbdata.id;      
+                    var fb_first_name = name[0];
+                    var fb_last_name = name[1];
+                    var fb_email = fbdata.email;
+                    var fb_username = fbdata.username;
+                    //fb_usertype = 'S';
+                   
+                    //alert(fb_email);
+                    
+                    //console.log(fb_email);
+                    
+                    $.ajax({
+                            url: 'users/fblogin',
+                            dataType: 'json',
+                            type: 'post',
+                            data: {"data" : {"User" : {"email" : fb_email,  "full_name" : fb_first_name +' '+fb_last_name, "facebook_id" : fb_user_id, "is_active" : 1,"is_admin" : 0 }}},
+                            success: function(data){ //console.log(data);alert('here ok');alert(data.status);
+                                if(data.status)
+                                {
+                                  //alert(data.url);
+                                    window.location.href = data.url;
+                                    //$(this).closest('form').find("input[type=text]").val("");
+                                    //showSuccess('Registration successfull.');
+                                     //$('.email_error').hide();
+                                    //$('.sign-up-btn').removeAttr('disabled');
+                                }  
+                                else
+                                {
+                                    window.location = '';
+                                    //showError(data.message);
+                                    //showError('Internal Error. Please try again later.');
+                                   // $('.email_error').show();
+                                    //$('.sign-up-btn').attr('disabled','disabled');
+                                }
+                            }
+                    });
+                   
+
+                   })
+                  }
+                 }, {scope:"email"});
+                 
+                 
+                  });
+
+
+                  
+               });
+               
+     
+</script>
+
+
+<script src="https://apis.google.com/js/client:plusone.js" type="text/javascript"></script>
+<script>
+    (function() {
+                 var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                 po.src = 'https://apis.google.com/js/client:plusone.js?onload=googleonLoadCallback1';
+                 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+               })();
+               
+               function googleonLoadCallback1()
+                {
+                    gapi.client.setApiKey('AIzaSyAiHAU-y9TPqKPJsHCJWXISULhybhfhaag'); //set your API KEY
+                    gapi.client.load('plus', 'v1',function(){});//Load Google + API
+                }
+
+                function google_login()
+                {
+                  var myParams = {
+                    'clientid' : '828743319746-e7f5upfed8l72l2imkqjrinliop95sut.apps.googleusercontent.com', //You need to set client id
+                    'cookiepolicy' : 'single_host_origin',
+                    'callback' : 'googleloginCallback', //callback function
+                    'approvalprompt':'force',
+                    'scope' : 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read'
+                  };
+                  gapi.auth.signIn(myParams);
+                }
+
+                function googleloginCallback(result)
+                {
+                    if(result['status']['signed_in'])
+                    {
+                        console.log(result);
+                       // alert("Login Success");
+                        gapi.client.load('plus', 'v1', function() {
+
+    var request = gapi.client.plus.people.get({
+        'userId': 'me'
+    });
+
+    request.execute(function(resp) {
+      //console.log(resp);
+        var email = '';
+                            if(resp['emails'])
+                            {
+                                for(i = 0; i < resp['emails'].length; i++)
+                                {
+                                    if(resp['emails'][i]['type'] == 'account')
+                                    {
+                                        email = resp['emails'][i]['value'];
+                                    }
+                                }
+                            }
+              var name1 = resp['displayName'];
+               var name = name1.split(' ');      
+                             var first_name = name[0];
+                             var last_name = name[1];
+               var google_id = resp['id'];
+                              $.ajax({
+                            url: '/team6/carvis/users/googlelogin',
+                            dataType: 'json',
+                            type: 'post',
+                            data: {"data" : {"User" : {"email" : email,  "full_name" : first_name +' '+ last_name, "google_id" : google_id, "is_active" : 1,"is_admin" : 0}}},
+                            success: function(data){ //console.log(data);alert(data.url);alert(data.status);
+                                if(data.status)
+                                {
+                                    
+                                    window.location.href = data.url;
+
+                                    //$(this).closest('form').find("input[type=text]").val("");
+                                    //showSuccess('Registration successfull.');
+                                     //$('.email_error').hide();
+                                    //$('.sign-up-btn').removeAttr('disabled');
+                                }  
+                                else
+                                {
+                                    window.location = '';
+                                    //showError(data.message);
+                                    //showError('Internal Error. Please try again later.');
+                                   // $('.email_error').show();
+                                    //$('.sign-up-btn').attr('disabled','disabled');
+                                }
+                            }
+                    });
+                           
+    });
+});
+                       
                         
-                        <div class="col-md-3 col-sm-3">
-                            <?php echo $this->element('rightsidebar'); ?>
-                        </div>
-                    </div>
-                </div>
-            </div>         
-        <?php } else if ($this->request->params['controller'] == "Doctors") { ?>
-            <?php echo $this->element('menu'); ?>
-            <div class="treatments-prices-banner-area">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-3 col-sm-3">
-                            <?php echo $this->element('doctor_sidebar'); ?>
-                        </div>
-                        <div class="col-md-9 col-sm-9">
-                            <?php echo $this->fetch('content'); ?>
-                        </div>
-                    </div>
-                </div>
-            </div>        
-        <?php } else { ?>
-            <?php echo $this->element('menu'); ?>
-            <div class="treatments-prices-banner-area">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-3 col-sm-3">
-                            <?php echo $this->element('leftsidebar'); ?>
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <?php echo $this->fetch('content'); ?>
-                        </div>
-                        <div class="col-md-3 col-sm-3">
-                            <?php echo $this->element('rightsidebar'); ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <?php } ?>
-        
-        <?php echo $this->element('footer'); ?>
+                    }  
 
-    </body>
-
-
-
-    <script type="text/javascript">
-
-        $(document).ready(function () {
-            $('.bxslider').bxSlider({
-                minSlides: 4,
-                maxSlides: 4,
-                slideWidth: 200,
-                slideMargin: 10,
-                controls: false,
-                autoControlsCombine:true,
-                auto: true,
-                autoControls: true
-            });
-            $('.bxslider2').bxSlider({
-                auto: true,
-                autoControls: true
-            });
-            $('.product_slider').bxSlider({
-                minSlides: 4,
-                maxSlides: 4,
-                slideWidth: 300,
-                slideMargin: 10,
-                controls: false,
-                autoControlsCombine:true,
-                auto: true,
-                autoControls: true
-            });
-        });
-    </script>
-
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('.account > a').click(function () {
-                $('.account-holder').slideToggle('fast');
-                $('.accounts-holder').slideUp('fast');
-                return false;
-            });
-        });
-    </script>
-    
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('.accounts > a').click(function () {
-                $('.accounts-holder').slideToggle('fast');
-                $('.account-holder').slideUp('fast');
-                return false;
-            });
-        });
-    </script>    
-    <script type="text/javascript">
-        $(window).scroll(function () {
-            if ($(window).scrollTop() >= 89) {
-                $('.navbar-inverse').addClass('fixed-header');
-            }
-            else {
-                $('.navbar-inverse').removeClass('fixed-header');
-            }
-        });
-    </script>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyCTkgTknL3nwYbWD7mii-wvDowwk-6Izms&language=en-AU"></script>
-    <script>
-        var autocomplete = new google.maps.places.Autocomplete(
-        /** @type {!HTMLInputElement} */(document.getElementById('address')),
-        {types: ['geocode']});
-
-        google.maps.event.addListener(autocomplete, 'place_changed', function() {
-            var place = autocomplete.getPlace();
-            console.log(place.address_components);
-            //console.log(place.address_components['cities']['long_name']);
-            //console.log(place.address_components['country']['long_name']);
-            //console.log(place.address_components.locality);
-            //console.log(place.address_components['2']['long_name']);
-            //console.log(place.address_components['3']['long_name']);
-            //console.log(place.address_components['4']['long_name']);
-            //console.log(place.address_components['5']['long_name']);
-            
-            $('#city').val('');
-            $('#region').val('');
-            $('#country').val('');
-            $('#postcode').val('');
-            
-            if(place.address_components['2'] && place.address_components['2']['long_name']){
-                var city = place.address_components['2']['long_name'];
-                $('#city').val(city);
-            } else {
-                $('#city').val('');
-            }
-            
-            if(place.address_components['5'] && place.address_components['4']['long_name']){
-                var region = place.address_components['5']['long_name'];
-                $('#region').val(region);
-            } else {
-                $('#region').val('');
-            }     
-            
-            if(place.address_components['6'] && place.address_components['6']['long_name']){
-                var country = place.address_components['6']['long_name'];
-                $('#country').val(country);
-            } else {
-                $('#country').val('');
-            }            
-            
-            if(place.address_components['7'] && place.address_components['7']['long_name']){
-                var postcode = place.address_components['7']['long_name'];
-                $('#postcode').val(postcode);
-            } else {
-                $('#postcode').val('');
-            }
-        });
-    </script>  
-    
-</html>
-
-<?php //echo $this->element('sql_dump');  ?>
+                }
+</script>
+<?php //echo $this->element('sql_dump'); ?>

@@ -1,3 +1,5 @@
+ <?php ?> 
+
 <!--PAGE CONTENT -->
 <div id="content">
     <div class="inner">
@@ -37,7 +39,7 @@
                                                     <th style="width:5%;"><?php echo $this->Paginator->sort('sl') ?></th>
                                                     <th style="width:25%;"><?php echo $this->Paginator->sort('name') ?></th>
                                                     <th style="width:25%;"><?php echo $this->Paginator->sort('slug') ?></th>
-                                                    <th style="width:15%;text-align: center"><?php echo $this->Paginator->sort('image') ?></th>
+                                                    <!---<th style="width:15%;text-align: center"><?php echo $this->Paginator->sort('image') ?></th>-->
                                                     <th style="width:30%;" class="actions"><?php echo __('Actions') ?></th>
                                                 </tr>
                                             </thead>
@@ -47,12 +49,13 @@
                                                     <td><?php echo $this->Number->format($i) ?></td>
                                                     <td><?php echo h($dt->name) ?></td>
                                                     <td><?php echo h($dt->slug) ?></td>
+                                                    <!---
                                                     <td style="text-align: center">
                                                         <?php $filePath = WWW_ROOT . 'category_img' . DS . $dt->image; ?>
                                                         <?php if ($dt->image != "" && file_exists($filePath)) { ?>
                                                             <img src="<?php echo $this->Url->build('/category_img/' . $dt->image); ?>" width="100px" height="100px" />
                                                         <?php } ?>
-                                                    </td>                                                   
+                                                    </td>    -->                                               
                                                     <td class="actions">
                                                         <?php //echo $this->Html->link(__('View'), ['action' => 'view', $doct->id]) ?>
                                                         <?php //echo $this->Html->link(__('Edit'), ['action' => 'edit', $doct->id]) ?> 

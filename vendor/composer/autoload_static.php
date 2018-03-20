@@ -7,8 +7,8 @@ namespace Composer\Autoload;
 class ComposerStaticInit1354724eae4a909381bd23e93df3ccb4
 {
     public static $files = array (
-        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '34122c0574b76bf21c9a8db62b5b9cf3' => __DIR__ . '/..' . '/cakephp/chronos/src/carbon_compat.php',
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         'c720f792236cd163ece8049879166850' => __DIR__ . '/..' . '/cakephp/cakephp/src/Core/functions.php',
         'ede59e3a405fb689cd1cebb7bb1db3fb' => __DIR__ . '/..' . '/cakephp/cakephp/src/Collection/functions.php',
         '90236b492da7ca2983a2ad6e33e4152e' => __DIR__ . '/..' . '/cakephp/cakephp/src/I18n/functions.php',
@@ -47,6 +47,10 @@ class ComposerStaticInit1354724eae4a909381bd23e93df3ccb4
         array (
             'Migrations\\' => 11,
         ),
+        'F' => 
+        array (
+            'Firebase\\JWT\\' => 13,
+        ),
         'D' => 
         array (
             'DebugKit\\Test\\Fixture\\' => 22,
@@ -68,6 +72,7 @@ class ComposerStaticInit1354724eae4a909381bd23e93df3ccb4
             'Aura\\Intl\\_Config\\' => 18,
             'App\\Test\\' => 9,
             'App\\' => 4,
+            'ADmad\\JwtAuth\\' => 14,
         ),
     );
 
@@ -128,6 +133,10 @@ class ComposerStaticInit1354724eae4a909381bd23e93df3ccb4
         array (
             0 => __DIR__ . '/..' . '/cakephp/migrations/src',
         ),
+        'Firebase\\JWT\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
+        ),
         'DebugKit\\Test\\Fixture\\' => 
         array (
             0 => __DIR__ . '/..' . '/cakephp/debug_kit/tests/Fixture',
@@ -167,6 +176,10 @@ class ComposerStaticInit1354724eae4a909381bd23e93df3ccb4
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
+        ),
+        'ADmad\\JwtAuth\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/admad/cakephp-jwt-auth/src',
         ),
     );
 

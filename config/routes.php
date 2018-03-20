@@ -48,7 +48,11 @@ Router::scope('/', function (RouteBuilder $routes) {
      * its action called 'display', and we pass a param to select the view file
      * to use (in this case, src/Template/Pages/home.ctp)...
      */
-    $routes->connect('/', ['controller' => 'Pages', 'action' => 'home']);
+    $routes->connect('/', ['controller' => 'Users', 'action' => 'index']);
+    $routes->connect('/how-it-works', ['controller' => 'Pages', 'action' => 'cms','how-it-works']);
+    $routes->connect('/about', ['controller' => 'Pages', 'action' => 'cms','about-us']);
+    $routes->connect('/faq', ['controller' => 'Pages', 'action' => 'cms','faq']);
+    $routes->connect('/admin', ['controller' => 'Users', 'action' => 'index','prefix'=>"admin"]);
     $routes->connect('/contacts', ['controller' => 'Contacts', 'action' => 'index']);
 
     /**
@@ -77,6 +81,13 @@ Router::scope('/', function (RouteBuilder $routes) {
 
 Router::prefix('admin', function ($routes) {
     $routes->connect('/', ['controller'=>'Users','action'=>'index']);
+    $routes->fallbacks('InflectedRoute');
+});
+
+Router::prefix('api', function ($routes) {
+    $routes->extensions(['json', 'xml']);
+    $routes->resources('Users');
+    //Router::connect('/api/users/register', ['controller' => 'Users', 'action' => 'add', 'prefix' => 'api']);
     $routes->fallbacks('InflectedRoute');
 });
 

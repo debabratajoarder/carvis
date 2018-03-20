@@ -71,6 +71,7 @@
                             <legend><?php echo __('Edit Content') ?></legend>
                             <?php
                                 echo '<div class="form-group">'.$this->Form->input('page_slug', array('class'=>'form-control','readonly')).'</div>';
+                                echo '<div class="form-group">'.$this->Form->input('page_title', array('class'=>'form-control')).'</div>';
                                 echo '<div class="form-group">'.$this->Form->input('meta_title', array('class'=>'form-control')).'</div>';
                                 echo '<div class="form-group">'.$this->Form->input('meta_key', array('class'=>'form-control')).'</div>';
                                 echo '<div class="form-group">'.$this->Form->input('meta_description', array('class'=>'form-control')).'</div>';

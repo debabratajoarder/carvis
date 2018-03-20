@@ -60,7 +60,7 @@
 
 
 
-<div id="content">
+<!--<div id="content">
     <div class="inner">
       <div class="row">
         <div class="col-lg-12">
@@ -106,5 +106,5 @@
     </div>
 </div>
 </div>
-</div>
+</div>-->
 

@@ -11,9 +11,9 @@ use Cake\ORM\TableRegistry;
 use Cake\Datasource\ConnectionManager;
 use Cake\View\Helper;
 /**
- * Customers Controller
+ * Website Settings Controller
  *
- * @property \App\Model\Table\CustomersTable $Customers
+ * @property \App\Model\Table\SiteSettingsTable $Customers
  */
 class SiteSettingsController extends AppController {
 
@@ -33,6 +33,9 @@ class SiteSettingsController extends AppController {
 
      */
 
+    /*
+     *  Logo Management in Admin
+     */
     public function logo() {
         //$this->viewBuilder()->layout('admin');
         
@@ -64,7 +67,8 @@ class SiteSettingsController extends AppController {
                 $file1 = $this->request->data['site_favicon']; //put the data into a var for easy use
                 $ext1 = substr(strtolower(strrchr($file1['name'], '.')), 1); //get the extension
                 $fileName1 = 'favicon.' . $ext1;
-                if (in_array($ext, $arr_ext)) {
+                //echo $fileName1;exit;
+                if (in_array($ext1, $arr_ext)) {
                     move_uploaded_file($file1['tmp_name'], WWW_ROOT . 'logo' .DS. $fileName1);
                     if($data['site_favicon'] != ""){
                         if( $data['site_favicon'] != $fileName1 ){
@@ -74,8 +78,10 @@ class SiteSettingsController extends AppController {
                             }
                         }
                     }
-                    $favicon_name = $fileName1;
+                    
+                    
                 }
+                $favicon_name = $fileName1;
             } else {
                 $favicon_name = $data['site_favicon'];
             }            
@@ -99,6 +105,9 @@ class SiteSettingsController extends AppController {
     }
     
     
+    /*
+     * Homepage Video Manegement
+     */
     public function video() {
         //$this->viewBuilder()->layout('admin');
         
@@ -106,30 +115,31 @@ class SiteSettingsController extends AppController {
         $data = $this->site_setting();
         if ($this->request->is('post')) {
             $arr_ext = array('mp4', 'MP4');
-            if (!empty($this->request->data['site_video']['name'])) {
-                $file = $this->request->data['site_video']; //put the data into a var for easy use
-                $ext = substr(strtolower(strrchr($file['name'], '.')), 1); //get the extension
-                $fileName = 'site_video.' . $ext;
-                if (in_array($ext, $arr_ext)) {
-                    move_uploaded_file($file['tmp_name'], WWW_ROOT . 'video' .DS. $fileName);
-                    if($data['video'] != ""){
-                        if( $data['video'] != $fileName ){
-                            $filePath = WWW_ROOT . 'logo' .DS.$data['site_video'];
-                            if (file_exists($filePath)) {
-                                unlink($filePath);
-                            }
-                        }
-                    }
-                    $vid_name = $fileName;
-                }
-            } else {
-                $vid_name = $data['video'];
-            }
+//            if (!empty($this->request->data['site_video']['name'])) {
+//                $file = $this->request->data['site_video']; //put the data into a var for easy use
+//                $ext = substr(strtolower(strrchr($file['name'], '.')), 1); //get the extension
+//                $fileName = 'site_video.' . $ext;
+//                if (in_array($ext, $arr_ext)) {
+//                    move_uploaded_file($file['tmp_name'], WWW_ROOT . 'video' .DS. $fileName);
+//                    if($data['video'] != ""){
+//                        if( $data['video'] != $fileName ){
+//                            $filePath = WWW_ROOT . 'logo' .DS.$data['site_video'];
+//                            if (file_exists($filePath)) {
+//                                unlink($filePath);
+//                            }
+//                        }
+//                    }
+//                    $vid_name = $fileName;
+//                }
+//            } else {
+//                $vid_name = $data['video'];
+//            }
 
             $sitesettings = TableRegistry::get('SiteSettings');
             $query = $sitesettings->query();
-            
-            if ( $query->update()->set(['video' => $vid_name])->where(['id' => $data['id']])->execute() ) {
+            $video_text=$this->request->data['video_text'];
+            $home_videourl=$this->request->data['home_videourl'];
+            if ( $query->update()->set(['video_text' => $video_text,'home_videourl'=>$home_videourl])->where(['id' => $data['id']])->execute() ) {
                 $this->Flash->success(__('The Video has been saved.'));
                 return $this->redirect(['action' => 'video']);
             } else {
@@ -144,6 +154,9 @@ class SiteSettingsController extends AppController {
         $this->set('_serialize', ['sitesettings']);
     }    
     
+    /*
+     * Homeopage Site Map Management
+     */
     public function sitemap() {
         //$this->viewBuilder()->layout('admin');
         
@@ -210,6 +223,9 @@ class SiteSettingsController extends AppController {
         $this->set('_serialize', ['sitesettings']);
     }    
     
+    /*
+     *  Website Settings management Like Paypal, Contact Number, Website Title
+     */
     public function sitedetail($id = null) {
 
         $this->loadModel('SiteSettings');
@@ -223,6 +239,9 @@ class SiteSettingsController extends AppController {
             $dt['contact_email'] = $this->request->data['contact_email'];
             $dt['contact_fax'] = $this->request->data['contact_fax'];
             $dt['contact_phone'] = $this->request->data['contact_phone'];
+            $dt['footer_text1'] = $this->request->data['footer_text1'];
+            $dt['is_stripe'] = !empty($this->request->data['is_stripe'])?1:0;
+            $dt['is_paypal'] = !empty($this->request->data['is_paypal'])?1:0;
             /*
             $dt['twitter_url'] = $this->request->data['twitter_url'];
             $dt['linkedIn_url'] = $this->request->data['linkedIn_url'];
@@ -250,7 +269,137 @@ class SiteSettingsController extends AppController {
         $this->set('_serialize', ['sitesettings']);
     }    
     
+    /*
+     * Home page content management Banner, Heqadings, Videos Etc.
+     */
+    public function homecontent($id = null) {
+
+        $this->loadModel('SiteSettings');
+        $data = $this->site_setting();
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            
+            //pr($this->request->data); exit;
+            
+            $dt['bannerheading'] = $this->request->data['bannerheading'];
+            $dt['bannner_subtxt1'] = $this->request->data['bannner_subtxt1'];
+            $dt['bannner_subtxt2'] = $this->request->data['bannner_subtxt2'];
+            $dt['bannner_subtxt3'] = $this->request->data['bannner_subtxt3'];
+            $dt['howit_heading1'] = $this->request->data['howit_heading1'];
+            $dt['howit_text1'] = $this->request->data['howit_text1'];
+            $dt['howit_heading2'] = $this->request->data['howit_heading2'];
+            $dt['howit_text2'] = $this->request->data['howit_text2'];
+            $dt['howit_heading3'] = $this->request->data['howit_heading3'];
+            $dt['howit_text3'] = $this->request->data['howit_text3'];
+            $dt['bannerheading2'] = $this->request->data['bannerheading2'];
+            /*
+            $dt['twitter_url'] = $this->request->data['twitter_url'];
+            $dt['linkedIn_url'] = $this->request->data['linkedIn_url'];
+            $dt['facebook_url'] = $this->request->data['facebook_url'];
+            $dt['gplus_url'] = $this->request->data['gplus_url'];
+            $dt['youtube_url'] = $this->request->data['youtube_url'];
+            $dt['google_analytics'] = $this->request->data['google_analytics']; 
+            */
+            
+            $sitesettings = TableRegistry::get('SiteSettings');
+            $query = $sitesettings->query();
+            
+            if ( $query->update()->set($dt)->where(['id' => $data['id']])->execute() ) {
+                $this->Flash->success(__('homecontent has been updated.'));
+                return $this->redirect(['action' => 'homecontent']);
+            } else {
+                $this->Flash->error(__('homecontent could not be update. Please, try again.'));
+            }            
+        }
+        
+        $id = 1;
+        $sitesettings = $this->SiteSettings->get($id);
+        //$doctors = $this->paginate($this->Sitesettings);
+        $this->set(compact('sitesettings'));
+        $this->set('_serialize', ['sitesettings']);
+    }   
     
+    /*
+     * Website footer Management
+     */
+    public function footermanagement($id = null) {
+        $this->loadModel('SiteSettings');
+        $data = $this->site_setting();
+        $arr_ext = array('jpg', 'jpeg', 'gif','png');
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            
+            //pr($this->request->data); exit;
+            
+            if (!empty($this->request->data['footer_logo']['name'])) {
+                $file = $this->request->data['footer_logo']; //put the data into a var for easy use
+                $ext = substr(strtolower(strrchr($file['name'], '.')), 1); //get the extension
+                $fileName = 'footer_logo1.' . $ext;
+                $this->request->data['footer_logo']=$fileName;
+                if (in_array($ext, $arr_ext)) {
+                    move_uploaded_file($file['tmp_name'], WWW_ROOT . 'logo' .DS. $fileName);
+                    if($data['footer_logo'] != ""){
+                        if( $data['footer_logo'] != $fileName ){
+                            $filePath = WWW_ROOT . 'logo' .DS.$data['footer_logo'];
+                            if (file_exists($filePath)) {
+                                unlink($filePath);
+                            }
+                        }
+                    }
+                    $logo_name = $fileName;
+                }
+            } else {
+                 $this->request->data['footer_logo'] = $data['footer_logo'];
+            }
+            
+            if (!empty($this->request->data['footer_logo2']['name'])) {
+                $file = $this->request->data['footer_logo2']; //put the data into a var for easy use
+                $ext = substr(strtolower(strrchr($file['name'], '.')), 1); //get the extension
+                $fileName = 'footer_logo2.' . $ext;
+                $this->request->data['footer_logo2']=$fileName;
+                if (in_array($ext, $arr_ext)) {
+                    move_uploaded_file($file['tmp_name'], WWW_ROOT . 'logo' .DS. $fileName);
+                    if($data['footer_logo2'] != ""){
+                        if( $data['footer_logo2'] != $fileName ){
+                            $filePath = WWW_ROOT . 'logo' .DS.$data['footer_logo2'];
+                            if (file_exists($filePath)) {
+                                unlink($filePath);
+                            }
+                        }
+                    }
+                    $logo_name = $fileName;
+                }
+            } else {
+                 $this->request->data['footer_logo2'] = $data['footer_logo2'];
+            }
+            
+            $dt['footer_text1'] = $this->request->data['footer_text1'];
+            $dt['footer_logo_link'] = $this->request->data['footer_logo_link'];
+            $dt['footer_logo2'] = $this->request->data['footer_logo2'];
+            $dt['footer_logo2_link'] = $this->request->data['footer_logo2_link'];
+//            $dt['facebook_url'] = $this->request->data['facebook_url'];           
+//            $dt['twitter_url'] = $this->request->data['twitter_url'];           
+//            $dt['gplus_url'] = $this->request->data['gplus_url'];           
+            $dt['footer_logo'] = $this->request->data['footer_logo'];           
+            $sitesettings = TableRegistry::get('SiteSettings');
+            $query = $sitesettings->query();
+            
+            if ( $query->update()->set($dt)->where(['id' => $data['id']])->execute() ) {
+                $this->Flash->success(__('Footer Content has been updated.'));
+                return $this->redirect(['action' => 'footermanagement']);
+            } else {
+                $this->Flash->error(__('Footer Content could not be update. Please, try again.'));
+            }            
+        }
+        
+        $id = 1;
+        $sitesettings = $this->SiteSettings->get($id);
+        //$doctors = $this->paginate($this->Sitesettings);
+        $this->set(compact('sitesettings'));
+        $this->set('_serialize', ['sitesettings']);
+    }   
+    
+    /*
+     * Website Seo Management
+     */
     public function siteseo($id = null) {
 
         $this->loadModel('SiteSettings');
@@ -260,9 +409,11 @@ class SiteSettingsController extends AppController {
             //pr($this->request->data); exit;
             
             $dt['site_meta_title']          = $this->request->data['site_meta_title'];
-            $dt['site_meta_key']            = $this->request->data['site_meta_key'];
+            //$dt['site_meta_key']            = $this->request->data['site_meta_key'];
             $dt['site_meta_description']    = $this->request->data['site_meta_description'];
-            $dt['google_analytics']         = $this->request->data['google_analytics'];
+            $dt['site_meta_tags']    = $this->request->data['site_meta_tags'];
+            
+            //$dt['google_analytics']         = $this->request->data['google_analytics'];
             $sitesettings = TableRegistry::get('SiteSettings');
             $query = $sitesettings->query();
             
@@ -282,7 +433,9 @@ class SiteSettingsController extends AppController {
         $this->set('_serialize', ['sitesettings']);
     }     
     
-    
+    /*
+     * Website Prescription fee Settings
+     */
     public function siteprescriptionfee($id = null) {
 
         $this->loadModel('SiteSettings');
@@ -313,7 +466,9 @@ class SiteSettingsController extends AppController {
         $this->set('_serialize', ['sitesettings']);
     }     
     
-    
+    /*
+     * Website Delieveru Charge Sttings
+     */
     public function sitedeliverycharges($id = null) {
 
         $this->loadModel('SiteSettings');
@@ -362,7 +517,9 @@ class SiteSettingsController extends AppController {
     
     
     
-    
+    /*
+     * Website Social Links Management
+     */
     public function sitesociials($id = null) {
 
         $this->loadModel('SiteSettings');
@@ -371,11 +528,12 @@ class SiteSettingsController extends AppController {
             //pr($this->request->data); exit;
             
             $dt['twitter_url'] = $this->request->data['twitter_url'];
-            $dt['linkedIn_url'] = $this->request->data['linkedIn_url'];
+            $dt['instagram_url'] = $this->request->data['instagram_url'];
             $dt['facebook_url'] = $this->request->data['facebook_url'];
             $dt['gplus_url'] = $this->request->data['gplus_url'];
             $dt['youtube_url'] = $this->request->data['youtube_url'];
-                        
+            $dt['androaid_link'] = $this->request->data['androaid_link'];
+            $dt['ios_link'] = $this->request->data['ios_link'];
             $sitesettings = TableRegistry::get('SiteSettings');
             $query = $sitesettings->query();
             

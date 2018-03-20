@@ -19,3 +19,4 @@ webroot/*_img/*
  .settings
  .classpath
  .metadata
+/nbproject/private/

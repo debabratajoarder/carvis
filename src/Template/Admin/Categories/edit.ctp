@@ -1,3 +1,4 @@
+   <?php ?> 
   <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
   <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js"></script>
   <script>
@@ -76,17 +77,17 @@
                                     <label class="control-label col-lg-4">  Name </label>
                                     <?php echo '<div class="col-lg-8">'.$this->Form->input('name', array('class'=>'form-control','label' => false, 'style' => 'width:800px')).'</div>'; ?>
                                 </div>
-                                
+                                <!--
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">  Slug </label>
                                     <?php echo '<div class="col-lg-8">'.$this->Form->input('slug', array('class'=>'form-control','label' => false, 'style' => 'width:800px')).'</div>'; ?>
-                                </div>                                
-
+                                </div>   --->                             
+                                <!--
                                  <div class="form-group">
                                     <label class="control-label col-lg-4"> Description </label>
                                     <?php echo '<div class="col-lg-8">'.$this->Form->textarea('description', array('class'=>'form-control','label' => false,'id'=>'editor1')).'</div>'; ?>
-                                </div>                                
-                                
+                                </div>   -->                             
+                                <!---
                                 <div class="form-group">
                                   <label class="control-label col-lg-4">Category Image </label>
                                   <div class="col-lg-8">
@@ -103,26 +104,33 @@
                                     </div>
                                   </div>
                                 </div>                                 
-
+                                -->
+                                <!---
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">  Meta Title </label>
                                     <?php echo '<div class="col-lg-8">'.$this->Form->input('meta_title', array('class'=>'form-control','label' => false, 'style' => 'width:800px')).'</div>'; ?>
-                                </div>                                
-                                
+                                </div>  -->                              
+                                <!--
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">  Meta Keywords </label>
                                     <?php echo '<div class="col-lg-8">'.$this->Form->input('meta_key', array('class'=>'form-control','type' => 'textarea','label' => false, 'style' => 'width:800px')).'</div>'; ?>
                                 </div>                                
-                                
+                                -->
+                                <!---
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">  Meta Description </label>
                                     <?php echo '<div class="col-lg-8">'.$this->Form->input('meta_description', array('class'=>'form-control','type' => 'textarea','label' => false, 'style' => 'width:800px')).'</div>'; ?>
                                 </div>
-                                
+                                -->
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">  Is Active ? </label>
                                     <?php echo '<div class="col-lg-8">'.$this->Form->input('is_active', array('label' => false, 'type' => 'checkbox')).'</div>'; ?>
-                                </div>                                
+                                </div>   
+                                <!--
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4">  Is Display Home Page ? </label>
+                                    <?php echo '<div class="col-lg-8">'.$this->Form->input('is_displayhome', array('label' => false, 'type' => 'checkbox')).'</div>'; ?>
+                                </div>   -->
 
                                 <label class="control-label col-lg-4"></label>
                                 <div class="col-lg-8" style="text-align:left;"> 

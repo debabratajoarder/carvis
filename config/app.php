@@ -9,8 +9,8 @@ return [
      * Development Mode:
      * true: Errors and warnings shown.
      */
-    'debug' => filter_var(env('DEBUG', false), FILTER_VALIDATE_BOOLEAN),  
-    //'debug' => filter_var(env('DEBUG', false), FILTER_VALIDATE_BOOLEAN),
+    //'debug' => filter_var(env('DEBUG', true), FILTER_VALIDATE_BOOLEAN),
+    'debug' => filter_var(env('DEBUG', false), FILTER_VALIDATE_BOOLEAN),
     /**
      * Configure basic information about the application.
      *
@@ -181,8 +181,8 @@ return [
             'host' => 'smtp.gmail.com',
             'port' => 587,
             'timeout' => 30,
-            'username' =>  'info@natit.us',
-            'password' => 'Natit2016',
+            'username' =>  ' mail@natitsolved.com',
+            'password' => 'Natit@2017',
             'client' => null,
             'tls' => true,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
@@ -201,7 +201,7 @@ return [
     'Email' => [
         'default' => [
             'transport' => 'default',
-            'from' => 'info@nits.website',
+            'from' => array( 'info@clubbook.com'=>'Carvis'),
             //'charset' => 'utf-8',
             //'headerCharset' => 'utf-8',
         ],
@@ -225,9 +225,9 @@ return [
              * the following line and set the port accordingly
              */
             //'port' => 'non_standard_port_number',
-            'username' => 'meddev_user',
-            'password' => 'm3d1c1n3',
-            'database' => 'meddev_medicinesbymailbox',
+            'username' => 'root',
+            'password' => 'Host@2017',
+            'database' => 'carvis',
             'encoding' => 'utf8',
             'timezone' => 'UTC',
             'flags' => [],
@@ -252,7 +252,7 @@ return [
              * which is the recommended value in production environments
              */
             //'init' => ['SET GLOBAL innodb_stats_on_metadata = 0'],
-            
+
             'url' => env('DATABASE_URL', null),
         ],
 
@@ -340,8 +340,8 @@ return [
         'defaults' => 'php',
         'timeout' => 720,            // auto logout after 12 hours
         'cookieTimeout' => 720,      // session cookie 12 hours
-        'autoRegenerate' => true        
-        
-        
+        'autoRegenerate' => true
+
+
     ],
 ];

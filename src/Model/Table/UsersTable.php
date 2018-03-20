@@ -16,9 +16,31 @@ class UsersTable extends Table {
         //$this->displayField('id');
         $this->primaryKey('id');
         $this->addBehavior ( 'Timestamp' );
+        
+        
+        $this->hasMany('ServiceProviderImages', [
+          'foreignKey' => 'serviceprovider_id',
+          'dependent' => true,
+          ]);
+        
+        
+        
+        
+        
         //$this->request->data['dob']= Time::parseDate($this->request->data['dob'],'Y-M-d');
 
-
+         // $this->belongsTo('Properties', [
+         //  'className' => 'Properties',
+         //  'foreignKey' => 'property_id',
+         //  'propertyName' => 'Properties'
+         //  ]); 
+        
+        
+//        $this->hasMany('Services', [
+//          'foreignKey' => 'provider_id',
+//          'dependent' => true,
+//          ]);
+        
 
         /*
           $this->hasMany('Reviews', [
@@ -47,12 +69,21 @@ class UsersTable extends Table {
           ]);
 
          */
+          //  $this->belongsTo('Labcategories', [
+          // 'className' => 'Labcategories',
+          // 'foreignKey' => 'category_id',
+          // 'propertyName' => 'Labcategories'
+          // ]);
+        
+        
+        
+         
+        
+       
+        
     }
 
     public function beforeMarshal(Event $event, ArrayObject $data, ArrayObject $options) {
-        if (isset($this->request->data['dob'])) {
-            $this->request->data['dob'] = Time::parseDate($this->request->data['dob'], 'Y-M-d');
-        }
     }
 
     public function beforeSave(Event $event) {
@@ -64,5 +95,6 @@ class UsersTable extends Table {
         }
         return true;
     }
+
 
 }

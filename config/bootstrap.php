@@ -179,7 +179,7 @@ Request::addDetector('tablet', function ($request) {
  * Plugin::load('Migrations'); //Loads a single plugin named Migrations
  *
  */
-
+Plugin::load('ADmad/JwtAuth');
 Plugin::load('Migrations');
 Plugin::loadAll();
 
@@ -204,12 +204,20 @@ DispatcherFactory::add('ControllerFactory');
  *
  * Also enable immutable time objects in the ORM.
  */
-Type::build('time')
-    ->useImmutable()
-    ->useLocaleParser();
-Type::build('date')
-    ->useImmutable()
-    ->useLocaleParser();
-Type::build('datetime')
-    ->useImmutable()
-    ->useLocaleParser();
+//Type::build('time')
+//    ->useImmutable()
+//    ->useLocaleParser();
+//Type::build('date')
+//    ->useImmutable()
+//    ->useLocaleParser();
+//Type::build('datetime')
+//    ->useImmutable()
+//    ->useLocaleParser();
+
+Configure::write(array(
+    
+    //'SITEURL'=>'http://111.93.169.90/team6/jimja',
+    'SITEURL'=>'http://localhost/carvis/',
+));
+
+

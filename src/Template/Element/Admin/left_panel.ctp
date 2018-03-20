@@ -1,5 +1,6 @@
 <!-- MENU SECTION -->
-<div id="left" style="height: 100%" >
+<?php ?>
+<div id="left" >
     <div class="media user-media well-small"> <a class="user-link" href="javascript:void(0);"> 
 
         </a> <br />
@@ -11,266 +12,246 @@
         </div>
         <br />
     </div>
-    <ul id="menu" class="collapse">
+    <ul id="menu" class="collapse" style=" width:100%; margin-top:30px;">
         <li class="panel <?php if ($this->request->params['action'] == 'home') { ?> active <?php } else { ?><?php } ?>"> <a href="<?php echo $this->Url->build(["controller" => "Users", "action" => "home"]); ?>" >  Dashboard </a> </li>
 
-        <?php /* ?>
-        <li class="panel <?php if ($this->request->params['action'] == 'settings' or $this->request->params['action'] == 'listuserbank' or $this->request->params['action'] == 'adduserbank') { ?> active <?php } else { ?><?php } ?>"> <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#component-nav"> 
-                Settings</a>
-            <ul  <?php if ($this->request->params['action'] == 'settings' or $this->request->params['action'] == 'listuserbank' or $this->request->params['action'] == 'adduserbank') { ?>class="in" <?php } else { ?>class="collapse"<?php } ?> id="component-nav">
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Users", "action" => "settings"]); ?>"><i class="icon-angle-right"></i> Admin Details </a></li>
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Users", "action" => "listuserbank"]); ?>"><i class="icon-angle-right"></i> Data Entry User List </a></li>					
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Users", "action" => "adduserbank"]); ?>"><i class="icon-angle-right"></i> Add Data Entry User </a></li>
-            </ul>
-        </li>
-        <?php */ ?>
+        
+        <!----------------- Site Settings Start ------------------------>
         
         <li class="panel <?php if ($this->request->params['controller'] == 'SiteSettings') { ?> active <?php } else { ?><?php } ?>"> 
             <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#sitesettings"> Site Settings </a>
             <ul class="<?php echo $this->request->params['controller'] == 'SiteSettings' ? 'in' : 'collapse' ?>" id="sitesettings">
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "SiteSettings", "action" => "logo"]); ?>"><i class="icon-angle-right"></i> Logo Management </a></li>					
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "SiteSettings", "action" => "video"]); ?>"><i class="icon-angle-right"></i> Video Management </a></li>
+                <li class=""><a href="<?php echo $this->Url->build(["controller" => "SiteSettings", "action" => "logo"]); ?>"><i class="icon-angle-right"></i> Logo Management </a></li>
+                
                 <li class=""><a href="<?php echo $this->Url->build(["controller" => "SiteSettings", "action" => "sitedetail"]); ?>"><i class="icon-angle-right"></i> Site Settings </a></li>
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "SiteSettings", "action" => "siteseo"]); ?>"><i class="icon-angle-right"></i> SEO Settings </a></li>
+                
                 <li class=""><a href="<?php echo $this->Url->build(["controller" => "SiteSettings", "action" => "sitesociials"]); ?>"><i class="icon-angle-right"></i> Social Settings </a></li>
-                
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "SiteSettings", "action" => "sitedeliverycharges"]); ?>"><i class="icon-angle-right"></i> Delivery Charges </a></li>
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "SiteSettings", "action" => "siteprescriptionfee"]); ?>"><i class="icon-angle-right"></i> Prescription Fees </a></li>
-                
-                <!-- <li class=""><a href="<?php echo $this->Url->build(["controller" => "SiteSettings", "action" => "sitemap"]); ?>"><i class="icon-angle-right"></i> Site Map </a></li> -->
-            </ul>
-        </li>        
-        
-        
-        
-        <li class="panel <?php if (($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'listdoctor') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'adddoctor') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'editdoctor') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'doctorview') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'doctorview')) { ?> active <?php } else { ?><?php } ?>"> 
-            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#doctors"> Doctors </a>
-            <ul class="<?php if (($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'listdoctor') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'adddoctor') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'editdoctor') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'doctorview') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'doctorview')) { ?> in <?php } else { ?> collapse <?php } ?>" id="doctors">
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Users", "action" => "listdoctor"]); ?>"><i class="icon-angle-right"></i> Doctors List </a></li>					
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Users", "action" => "adddoctor"]); ?>"><i class="icon-angle-right"></i> Add Doctors </a></li>
-            </ul>
-        </li>        
 
-        <li class="panel <?php if (($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'listuser') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'add') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'edituser') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'userdelete') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'userview')) { ?> 1active <?php } else { ?><?php } ?>"> 
-            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#users"> Patients </a>
+
+
+                
+            </ul>
+        </li> 
+        
+        <!----------------- Site Settings End ------------------------>
+        
+       
+        
+        <!----------------- Slider Management Start ------------------------>
+        
+        <li class="panel <?php if (($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'listslider') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'addslider') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'editslider') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'sliderdelete') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'sliderview')) { ?> active <?php } else { ?><?php } ?>"> 
+            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#slider"> Slider Management </a>
+            <ul class="<?php if (($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'listslider') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'addslider') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'editslider') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'sliderdelete') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'sliderview')) { ?> in <?php } else { ?> collapse <?php } ?>" id="slider">
+                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Users", "action" => "listslider"]); ?>"><i class="icon-angle-right"></i> Slider List </a></li>					
+                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Users", "action" => "addslider"]); ?>"><i class="icon-angle-right"></i> Add Slider </a></li>
+            </ul>
+        </li>
+       
+        <!----------------- Slider Management End ------------------------>
+        
+        
+        
+        
+        
+        
+        <!----------------- User Management Start ------------------------>
+        
+        <li class="panel <?php if (($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'listuser') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'add') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'edituser') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'userdelete') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'userview')) { ?> active <?php } else { ?><?php } ?>"> 
+            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#users"> Consumers </a>
             <ul class="<?php if (($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'listuser') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'add') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'edituser') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'userdelete') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'userview')) { ?> in <?php } else { ?> collapse <?php } ?>" id="users">
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Users", "action" => "listuser"]); ?>"><i class="icon-angle-right"></i> Patient List </a></li>					
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Users", "action" => "add"]); ?>"><i class="icon-angle-right"></i> Add Patient </a></li>
+                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Users", "action" => "listuser"]); ?>"><i class="icon-angle-right"></i> Consumers List </a></li>					
+                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Users", "action" => "add"]); ?>"><i class="icon-angle-right"></i> Add Consumers </a></li>
             </ul>
-        </li>  
+        </li>
+       
+        <!----------------- Users Management End ------------------------>
         
-        <li class="panel <?php if ($this->request->params['controller'] == 'Orders') { ?> active <?php } else { ?><?php } ?>"> 
-            <a href="javascript:void(0)" data-parent="#order" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#orders"> Orders </a>
-            <ul class="<?php echo $this->request->params['controller'] == 'Orders' ? 'in' : 'collapse' ?>" id="orders">
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Orders", "action" => "index"]); ?>">
-                        <i class="icon-angle-right"></i> New Orders </a></li>					
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Orders", "action" => "approvedorders"]); ?>">
-                        <i class="icon-angle-right"></i> Approved Orders </a></li>
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Orders", "action" => "rejectedorders"]); ?>">
-                        <i class="icon-angle-right"></i> Rejected Orders </a></li>        
+        
+        <!----------------- Service Provider Management Start ------------------------>
+        
+        <li class="panel <?php if (($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'listserviceprovider_verified') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'listserviceprovider_nonverified') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'addserviceprovider') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'editserviceprovider') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'companydelete') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'serviceproviderview')) { ?> active <?php } else { ?><?php } ?>"> 
+            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#company"> Service Providers </a>
+            <ul class="<?php if (($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'listserviceprovider_verified') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'listserviceprovider_nonverified')  || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'addserviceprovider') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'editserviceprovider') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'companydelete') || ($this->request->params['controller'] == 'Users' && $this->request->params['action'] == 'serviceproviderview')) { ?> in <?php } else { ?> collapse <?php } ?>" id="company">
+<!--                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Users", "action" => "listserviceprovider_nonverified"]); ?>"><i class="icon-angle-right"></i> Non verified Service Providers </a></li>			-->
+                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Users", "action" => "listserviceprovider_verified"]); ?>"><i class="icon-angle-right"></i> Service Providers</a></li>
+                
+                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Users", "action" => "addserviceprovider"]); ?>"><i class="icon-angle-right"></i> Add Service Provider </a></li>
             </ul>
-        </li>        
+        </li>
+       
+        <!----------------- Service Provider Management End ------------------------>
+
         
-        <li class="panel <?php if ($this->request->params['controller'] == 'Messages') { ?> active <?php } else { ?><?php } ?>"> 
-            <a href="javascript:void(0)" data-parent="#order" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#msgadm"> Inbox </a>
-            <ul class="<?php echo $this->request->params['controller'] == 'Messages' ? 'in' : 'collapse' ?>" id="msgadm">
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Messages", "action" => "doctorinbox"]); ?>">
-                        <i class="icon-angle-right"></i> Doctors Inbox </a></li>
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Messages", "action" => "patientinbox"]); ?>">
-                        <i class="icon-angle-right"></i> Patients Inbox </a></li>        
+        
+       <!----------------- Service Type Management Start ------------------------>
+        
+        <li class="panel <?php if (($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'listservicetype') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'addservicetype') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'editservicetype') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'servicetypedelete') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'servicetypeview')) { ?> active <?php } else { ?><?php } ?>"> 
+            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#services"> Service Type Management </a>
+            <ul class="<?php if (($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'listservicetype') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'addservicetype') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'editservicetype') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'servicetypedelete') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'servicetypeview')) { ?> in <?php } else { ?> collapse <?php } ?>" id="services">
+                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Services", "action" => "listservicetype"]); ?>"><i class="icon-angle-right"></i> Service Type List </a></li>					
+                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Services", "action" => "addservicetype"]); ?>"><i class="icon-angle-right"></i> Add Service Type </a></li>
             </ul>
-        </li>        
+        </li>
+       
+        <!----------------- Service Type Management End ------------------------> 
         
         
+       
+        <!----------------- Car Make Management Start ------------------------>
+        
+        <li class="panel <?php if (($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'listmake') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'addmake') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'editmake') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'makedelete') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'makeview')) { ?> active <?php } else { ?><?php } ?>"> 
+            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#servicesmake"> Car Make Management </a>
+            <ul class="<?php if (($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'listmake') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'addmake') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'editmake') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'makedelete') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'makeview')) { ?> in <?php } else { ?> collapse <?php } ?>" id="servicesmake">
+                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Services", "action" => "listmake"]); ?>"><i class="icon-angle-right"></i> Car Make List </a></li>					
+                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Services", "action" => "addmake"]); ?>"><i class="icon-angle-right"></i> Add Car Make </a></li>
+            </ul>
+        </li>
+       
+        <!----------------- Car Make Management End ------------------------> 
+        
+       
+        <!----------------- Car Model Management Start ------------------------>
+        
+        <li class="panel <?php if (($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'listmodel') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'addmodel') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'editmodel') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'modeldelete')) { ?> active <?php } else { ?><?php } ?>"> 
+            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#model"> Car Model Management </a>
+            <ul class="<?php if (($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'listmodel') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'addmodel') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'editmodel') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'modeldelete') ) { ?> in <?php } else { ?> collapse <?php } ?>" id="model">
+                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Services", "action" => "listmodel"]); ?>"><i class="icon-angle-right"></i> Model List </a></li>					
+                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Services", "action" => "addmodel"]); ?>"><i class="icon-angle-right"></i> Add Model </a></li>
+            </ul>
+        </li>
+       
+        <!----------------- Car Model Management End ------------------------>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <!----------------- Feature Management Start ------------------------>
+        
+        <li class="panel <?php if (($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'listfeature') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'addfeature') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'editfeature') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'featuredelete') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'featureview')) { ?> active <?php } else { ?><?php } ?>"> 
+            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#feature"> Feature Management </a>
+            <ul class="<?php if (($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'listfeature') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'addfeature') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'editfeature') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'featuredelete') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'featureview')) { ?> in <?php } else { ?> collapse <?php } ?>" id="feature">
+                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Services", "action" => "listfeature"]); ?>"><i class="icon-angle-right"></i> Feature List </a></li>					
+                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Services", "action" => "addfeature"]); ?>"><i class="icon-angle-right"></i> Add Feature </a></li>
+            </ul>
+        </li>
+       
+        <!---------------- Feature Management End ------------------------> 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <!----------------- Rating Text Management Start ------------------------>
+        
+<!--        <li class="panel <?php if (($this->request->params['controller'] == 'Reviews' && $this->request->params['action'] == 'listratingtext') || ($this->request->params['controller'] == 'Reviews' && $this->request->params['action'] == 'addratingtext') || ($this->request->params['controller'] == 'Reviews' && $this->request->params['action'] == 'editratingtext') || ($this->request->params['controller'] == 'Reviews' && $this->request->params['action'] == 'ratingtextdelete')) { ?> active <?php } else { ?><?php } ?>"> 
+            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#ratingtext"> Rating Text Management </a>
+            <ul class="<?php if (($this->request->params['controller'] == 'Reviews' && $this->request->params['action'] == 'listratingtext') || ($this->request->params['controller'] == 'Reviews' && $this->request->params['action'] == 'addratingtext') || ($this->request->params['controller'] == 'Reviews' && $this->request->params['action'] == 'editratingtext') || ($this->request->params['controller'] == 'Reviews' && $this->request->params['action'] == 'ratingtextdelete') ) { ?> in <?php } else { ?> collapse <?php } ?>" id="ratingtext">
+                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Reviews", "action" => "listratingtext"]); ?>"><i class="icon-angle-right"></i> Rating Text List </a></li>					
+                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Reviews", "action" => "addratingtext"]); ?>"><i class="icon-angle-right"></i> Add Rating Text </a></li>
+            </ul>
+        </li>-->
+       
+        <!----------------- Rating Text Management End ------------------------> 
+        
+        
+
+     <!----------------- Moderation Management Start ------------------------>
+        
+        <li class="panel <?php if (($this->request->params['controller'] == 'Reviews' && $this->request->params['action'] == 'listreview') || ($this->request->params['controller'] == 'Reviews' && $this->request->params['action'] == 'reviewview') || ($this->request->params['controller'] == 'Reviews' && $this->request->params['action'] == 'listserviceprovider') || ($this->request->params['controller'] == 'Reviews' && $this->request->params['action'] == 'listreview_new') || ($this->request->params['controller'] == 'Reviews' && $this->request->params['action'] == 'listwish')) { ?> active <?php } else { ?><?php } ?>"> 
+            
+            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#Review"> Moderation </a>
+            
+            <ul class="<?php if (($this->request->params['controller'] == 'Reviews' && $this->request->params['action'] == 'listreview') || ($this->request->params['controller'] == 'Reviews' && $this->request->params['action'] == 'reviewview') || ($this->request->params['controller'] == 'Reviews' && $this->request->params['action'] == 'listserviceprovider') || ($this->request->params['controller'] == 'Reviews' && $this->request->params['action'] == 'listreview_new') || ($this->request->params['controller'] == 'Reviews' && $this->request->params['action'] == 'listwish')) { ?> in <?php } else { ?> collapse <?php } ?>" id="Review">
+                
+                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Reviews", "action" => "listreview"]); ?>"><i class="icon-angle-right"></i> All Review List </a></li>
+                
+                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Reviews", "action" => "listreview_new"]); ?>"><i class="icon-angle-right"></i> New Reviews </a></li>
+                
+                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Reviews", "action" => "listserviceprovider"]); ?>"><i class="icon-angle-right"></i> Merchants To Be Verified </a></li>
+                
+                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Reviews", "action" => "listwish"]); ?>"><i class="icon-angle-right"></i> Wish List </a></li>
+                
+            </ul>
+        </li>
+       
+        <!----------------- Moderation Management End ------------------------>
+        
+        
+        
+        
+        <!----------------- Contents Management Start -------------------------------->
+       
         <li class="panel <?php if ($this->request->params['controller'] == 'Contents') { ?> active <?php } else { ?> '' <?php } ?>"> 
             <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#contents"> Contents </a>
-            <ul class="<?php echo $this->request->params['controller'] == 'Contents' ? 'in' : 'collapse' ?>" id="contents">
+            <ul class="<?php echo $this->request->params['controller'] == 'Contents'  ? 'in' : 'collapse' ?>" id="contents">
                 <li class=""><a href="<?php echo $this->Url->build(["controller" => "Contents", "action" => "index"]); ?>"><i class="icon-angle-right"></i> Contents List </a></li>					
             </ul>
-        </li>        
-
-        <li class="panel <?php if ($this->request->params['controller'] == 'Contacts') { ?> active <?php } else { ?> '' <?php } ?>"> 
-            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#contact"> Contacts </a>
-            <ul class="<?php echo $this->request->params['controller'] == 'Contacts' ? 'in' : 'collapse' ?>" id="contact">
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Contacts", "action" => "index"]); ?>"><i class="icon-angle-right"></i> Contacts List </a></li>					
-            </ul>
-        </li>
+        </li>   
         
-        <li class="panel <?php if ($this->request->params['controller'] == 'Reviews') { ?> active <?php } else { ?> '' <?php } ?>"> 
-            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#review"> Reviews </a>
-            <ul class="<?php echo $this->request->params['controller'] == 'Reviews' ? 'in' : 'collapse' ?>" id="review">
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Reviews", "action" => "index"]); ?>"><i class="icon-angle-right"></i> Reviews List </a></li>					
+        <!----------------- Contents Management End -------------------------------->
+        
+        
+        
+        
+       <!----------------- Email Templates Management  Start -------------------------------->
+        
+        <li class="panel <?php if ($this->request->params['controller'] == 'EmailTemplates') { ?> active <?php } else { ?> '' <?php } ?>"> 
+            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#email_tpl"> Email Templates </a>
+            <ul class="<?php echo $this->request->params['controller'] == 'EmailTemplates' ? 'in' : 'collapse' ?>" id="email_tpl">
+                <li class=""><a href="<?php echo $this->Url->build(["controller" => "EmailTemplates", "action" => "index"]); ?>"><i class="icon-angle-right"></i> Email Templates List </a></li>					
             </ul>
-        </li>
-
+        </li>   
+        
+        <!----------------- Email Templates Management End -------------------------------->
+         
+       <!-----------------  Email Subscribers  Start -------------------------------->
+        
+        <li class="panel <?php if (($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'listemailsubscriber') || ($this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'sendemail')) { ?> active <?php } else { ?> '' <?php } ?>"> 
+            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#Suscribers"> Email Subscribers </a>
+            <ul class="<?php echo $this->request->params['controller'] == 'Services' && $this->request->params['action'] == 'listemailsubscriber' ? 'in' : 'collapse' ?>" id="Suscribers">
+                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Services", "action" => "listemailsubscriber"]); ?>"><i class="icon-angle-right"></i>  Subscribers List </a></li>			
+                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Services", "action" => "sendemail"]); ?>"><i class="icon-angle-right"></i>  Send Email </a></li>
+            </ul>
+            
+        </li>   
+        
+        <!----------------- Email Subscribers End -------------------------------->
+        
+        
+        <!-----------------  Statistics  Start -------------------------------->
+        
+        <li class="panel <?php if ($this->request->params['controller'] == 'Statistics') { ?> active <?php } else { ?> '' <?php } ?>"> 
+            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#Statistics"> Statistics </a>
+            <ul class="<?php echo $this->request->params['controller'] == 'Statistics' ? 'in' : 'collapse' ?>" id="Statistics">
+                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Statistics", "action" => "index"]); ?>"><i class="icon-angle-right"></i> View Statistics </a></li>					
+            </ul>
+        </li>   
+        
+        <!----------------- Statistics End -------------------------------->
+        
+       <!----------------- FAQ Management Start ------------------------>
+        
         <li class="panel <?php if ($this->request->params['controller'] == 'Faqs') { ?> active <?php } else { ?><?php } ?>"> 
             <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#faq"> FAQ </a>
             <ul class="<?php echo $this->request->params['controller'] == 'Faqs' ? 'in' : 'collapse' ?>" id="faq">
                 <li class=""><a href="<?php echo $this->Url->build(["controller" => "Faqs", "action" => "index"]); ?>">
-                        <i class="icon-angle-right"></i> FAQ List </a></li>					
+                        <i class="icon-angle-right"></i> FAQ List </a></li>                 
                 <li class=""><a href="<?php echo $this->Url->build(["controller" => "Faqs", "action" => "add"]); ?>">
                         <i class="icon-angle-right"></i> Add FAQ </a></li>   
             </ul>
-        </li>        
+        </li> 
+       
+        <!----------------- FAQ Management End ------------------------>
         
-        <li class="panel <?php if ($this->request->params['controller'] == 'Newses') { ?> active <?php } else { ?><?php } ?>"> 
-            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#newses"> News and Announcements </a>
-            <ul class="<?php echo $this->request->params['controller'] == 'Newses' ? 'in' : 'collapse' ?>" id="newses">
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Newses", "action" => "index"]); ?>">
-                        <i class="icon-angle-right"></i> News List </a></li>					
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Newses", "action" => "add"]); ?>">
-                        <i class="icon-angle-right"></i> Add News </a></li>
-            </ul>
-        </li>       
-        <!--
-        <li class="panel <?php if ($this->request->params['controller'] == 'Newsletters') { ?> active <?php } else { ?><?php } ?>"> 
-            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#newsleters"> Newsletters </a>
-            <ul class="<?php echo $this->request->params['controller'] == 'Newsletters' ? 'in' : 'collapse' ?>" id="newsleters">
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Newsletters", "action" => "index"]); ?>">
-                        <i class="icon-angle-right"></i> Newsletter List </a></li>					
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Newsletters", "action" => "add"]); ?>">
-                        <i class="icon-angle-right"></i> Add Newsletter </a></li>
-            </ul>
-        </li>  
-        -->
-        
-        <li class="panel <?php if ($this->request->params['controller'] == 'Categories') { ?> active <?php } else { ?><?php } ?>"> 
-            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#category"> Category </a>
-            <ul class="<?php echo $this->request->params['controller'] == 'Categories' ? 'in' : 'collapse' ?>" id="category">
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Categories", "action" => "index"]); ?>">
-                        <i class="icon-angle-right"></i> Category List </a></li>					
-                <!--<li class=""><a href="<?php echo $this->Url->build(["controller" => "Categories", "action" => "add"]); ?>">
-                        <i class="icon-angle-right"></i> Add Category </a></li>-->
-            </ul>
-        </li>        
-
-        <li class="panel <?php if ($this->request->params['controller'] == 'Treatments') { ?> active <?php } else { ?><?php } ?>"> 
-            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#treatment"> Treatments </a>
-            <ul class="<?php echo $this->request->params['controller'] == 'Treatments' ? 'in' : 'collapse' ?>" id="treatment">
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Treatments", "action" => "index"]); ?>">
-                        <i class="icon-angle-right"></i> Treatment List </a></li>					
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Treatments", "action" => "add"]); ?>">
-                        <i class="icon-angle-right"></i> Add Treatment </a></li>
-            </ul>
-        </li>        
-        
-        <?php //pr($appTreatment); exit; ?>
-        <!--
-        <?php if($appTreatment){ ?>
-        <li class="panel <?php if ($this->request->params['controller'] == 'SubTreatments') { ?> active <?php } else { ?><?php } ?>"> 
-            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#streatment"> Sub Treatments </a>
-            <ul class="<?php echo $this->request->params['controller'] == 'SubTreatments' ? 'in' : 'collapse' ?>" id="streatment">
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "SubTreatments", "action" => "index"]); ?>">
-                        <i class="icon-angle-right"></i> Sub Treatments List </a></li>					
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "SubTreatments", "action" => "add"]); ?>">
-                        <i class="icon-angle-right"></i> Add Sub Treatment </a></li>
-            </ul>
-        </li>
-        <?php } ?>
-        -->
-        
-        
-        <li class="panel <?php if ($this->request->params['controller'] == 'Sliders') { ?> active <?php } else { ?><?php } ?>"> 
-            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#hslide"> Home Sliders </a>
-            <ul class="<?php echo $this->request->params['controller'] == 'Sliders' ? 'in' : 'collapse' ?>" id="hslide">
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Sliders", "action" => "index"]); ?>">
-                        <i class="icon-angle-right"></i> Slider List </a></li>					
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Sliders", "action" => "add"]); ?>">
-                        <i class="icon-angle-right"></i> Add Slider </a></li>
-            </ul>
-        </li>        
-
-        <li class="panel <?php if ($this->request->params['controller'] == 'Questions') { ?> active <?php } else { ?><?php } ?>"> 
-            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#question"> Questions </a>
-            <ul class="<?php echo $this->request->params['controller'] == 'Questions' ? 'in' : 'collapse' ?>" id="question">
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Questions", "action" => "index"]); ?>">
-                        <i class="icon-angle-right"></i> Question List </a></li>					
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Questions", "action" => "add"]); ?>">
-                        <i class="icon-angle-right"></i> Add Question </a></li>
-            </ul>
-        </li>        
-        
-        <li class="panel <?php if ($this->request->params['controller'] == 'Medicines') { ?> active <?php } else { ?><?php } ?>"> 
-            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#medicine"> Medicines </a>
-            <ul class="<?php echo $this->request->params['controller'] == 'Medicines' ? 'in' : 'collapse' ?>" id="medicine">
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Medicines", "action" => "index"]); ?>">
-                        <i class="icon-angle-right"></i> Medicine List </a></li>					
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Medicines", "action" => "add"]); ?>">
-                        <i class="icon-angle-right"></i> Add Medicine </a></li>
-            </ul>
-        </li>        
-        
-        
-        <?php /* ?>
-        <li class="panel <?php if ($this->request->params['controller'] == 'Runs') { ?> active <?php } else { ?><?php } ?>"> 
-            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#form-nav"> Run </a>
-            <ul class="<?php echo $this->request->params['controller'] == 'Runs' ? 'in' : 'collapse' ?>" id="form-nav">
-
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Runs", "action" => "index"]); ?>"><i class="icon-angle-right"></i> Run List </a></li>					
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Runs", "action" => "add"]); ?>"><i class="icon-angle-right"></i> Add Run </a></li>
-            </ul>
-        </li>		  
-
-        <li class="panel <?php if ($this->request->params['controller'] == 'Customers') { ?> active <?php } else { ?><?php } ?>"> 
-            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#customers"> Customers </a>
-            <ul class="<?php echo $this->request->params['controller'] == 'Customers' ? 'in' : 'collapse' ?>" id="customers">
-
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Customers", "action" => "index"]); ?>"><i class="icon-angle-right"></i> Customers List </a></li>					
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Customers", "action" => "add"]); ?>"><i class="icon-angle-right"></i> Add Customers </a></li>
-            </ul>
-        </li>
-
-        <li class="panel <?php if ($this->request->params['controller'] == 'Suppliers') { ?> active <?php } else { ?><?php } ?>"> 
-            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#suppliers"> Suppliers </a>
-            <ul class="<?php echo $this->request->params['controller'] == 'Suppliers' ? 'in' : 'collapse' ?>" id="suppliers">
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Suppliers", "action" => "index"]); ?>"><i class="icon-angle-right"></i> Suppliers List </a></li>					
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Suppliers", "action" => "add"]); ?>"><i class="icon-angle-right"></i> Add Suppliers </a></li>
-            </ul>
-        </li>		  
-
-        <li class="panel <?php if ($this->request->params['controller'] == 'Products') { ?> active <?php } else { ?><?php } ?>"> 
-            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#prod"> Products </a>
-            <ul class="<?php echo $this->request->params['controller'] == 'Products' ? 'in' : 'collapse' ?>" id="prod">
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Products", "action" => "index"]); ?>"><i class="icon-angle-right"></i> Products List </a></li>					
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Products", "action" => "add"]); ?>"><i class="icon-angle-right"></i> Add Products </a></li>
-            </ul>
-        </li>
-
-        <li class="panel <?php if ($this->request->params['controller'] == 'Orders') { ?> active <?php } else { ?><?php } ?>"> 
-            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#ord"> Orders </a>
-            <ul class="<?php echo $this->request->params['controller'] == 'Orders' ? 'in' : 'collapse' ?>" id="ord">
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Orders", "action" => "index"]); ?>"><i class="icon-angle-right"></i> Orders List </a></li>					
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Orders", "action" => "add"]); ?>"><i class="icon-angle-right"></i> Add Orders </a></li>
-            </ul>
-        </li>
-
-        <li class="panel <?php if ($this->request->params['controller'] == 'Templates') { ?> active <?php } else { ?><?php } ?>"> 
-            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#ordtemp"> Order Templets </a>
-            <ul class="<?php echo $this->request->params['controller'] == 'Templates' ? 'in' : 'collapse' ?>" id="ordtemp">
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Templates", "action" => "index"]); ?>"><i class="icon-angle-right"></i> Order Templets List </a></li>					
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Templates", "action" => "add"]); ?>"><i class="icon-angle-right"></i> Add Order Templets </a></li>
-            </ul>
-        </li>
-
-        <li class="panel <?php if ($this->request->params['controller'] == 'Reports') { ?> active <?php } else { ?><?php } ?>"> 
-            <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#report"> Reports </a>
-            <ul class="<?php echo $this->request->params['controller'] == 'Reports' ? 'in' : 'collapse' ?>" id="report">
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Reports", "action" => "index"]); ?>"><i class="icon-angle-right"></i> Run Reports </a></li>
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "Reports", "action" => "packing"]); ?>"><i class="icon-angle-right"></i> Packing Reports </a></li>									
-            </ul>
-        </li>
-
-
-
-
-        <li class="panel <?php if ($this->request->params['action'] == 'generaluser' or $this->request->params['action'] == 'generaluseredit') { ?> active <?php } else { ?><?php } ?>"> <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#pagesr-nav"> 
-                Users </a>
-            <ul <?php if ($this->request->params['action'] == 'generaluser' or $this->request->params['action'] == 'generaluseredit') { ?>class="in" <?php } else { ?>class="collapse"<?php } ?> id="pagesr-nav">
-                <li><?php echo $this->Html->link(__('> User List'), ['controller' => 'users', 'action' => 'generaluser']) ?></li>
-
-            </ul>
-        </li>	
-        <?php */ ?>
     </ul>
 </div>
 <!--END MENU SECTION --> 

@@ -1,0 +1,30 @@
+#prevent fro google
+Header set X-Robots-Tag "noindex, nofollow"
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    #RewriteBase /medicinesbymailbox/
+    RewriteRule ^$ webroot/    [L]
+    RewriteRule (.*) webroot/$1    [L]
+
+</IfModule>
+
+Options +FollowSymLinks
+
+<IfModule mod_php5.c>
+    php_value session.gc_maxlifetime "0"
+    php_value session.cookie_lifetime "0"
+    php_value memory_limit 1024M
+    php_value upload_max_filesize 100M
+    php_value post_max_size 100M
+    php_value max_execution_time 0
+    php_value max_input_time 600
+    php_flag display_errors off
+</IfModule>
+
+
+#Auth on development    
+    #AuthType Basic
+    #AuthName "Development Server"
+    #AuthUserFile "/home/meddev/.htpasswds"
+    #require valid-user

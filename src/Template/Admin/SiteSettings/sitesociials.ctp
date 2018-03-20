@@ -29,16 +29,16 @@
 
                             <div class="row">
 				  <?php echo $this->Form->create($sitesettings,['class' => 'form-horizontal', 'id' => 'siteset-validate', 'type' => 'post', 'enctype' => 'multipart/form-data']);?>
-                                <div class="form-group">
+<!--                                <div class="form-group">
                                     <label class="control-label col-lg-2">Twitter Url</label>
                                     <div class="col-lg-10">
                                         <input type="text" id="twitter_url" name="twitter_url" class="form-control" value="<?php echo $sitesettings->twitter_url;?>"/>
                                     </div>
-                                </div>                                
+                                </div>                                -->
                                 <div class="form-group">
-                                    <label class="control-label col-lg-2">Linkedin Url</label>
+                                    <label class="control-label col-lg-2">Instagram Url</label>
                                     <div class="col-lg-10">
-                                        <input type="text" id="linkedIn_url" name="linkedIn_url" class="form-control" value="<?php echo $sitesettings->linkedIn_url;?>"/>
+                                        <input type="text" id="linkedIn_url" name="instagram_url" class="form-control" value="<?php echo $sitesettings->instagram_url;?>"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -47,24 +47,39 @@
                                         <input type="text" id="facebook_url" name="facebook_url" class="form-control" value="<?php echo $sitesettings->facebook_url;?>"/>
                                     </div>
                                 </div>                                
-                                <div class="form-group">
+<!--                                <div class="form-group">
                                     <label class="control-label col-lg-2">GPlus Url</label>
                                     <div class="col-lg-10">
                                         <input type="text" id="gplus_url" name="gplus_url" class="form-control" value="<?php echo $sitesettings->gplus_url;?>"/>
                                     </div>
-                                </div>                                
+                                </div>                                -->
                                 <div class="form-group">
                                     <label class="control-label col-lg-2">Youtube Url</label>
                                     <div class="col-lg-10">
                                         <input type="text" id="youtube_url" name="youtube_url" class="form-control" value="<?php echo $sitesettings->youtube_url;?>"/>
                                     </div>
-                                </div>                                
+                                </div>  
+                                
                                 <div class="form-group">
+                                    <label class="control-label col-lg-2">Android Url</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" id="androaid_link" name="androaid_link" class="form-control" value="<?php echo $sitesettings->androaid_link;?>"/>
+                                    </div>
+                                </div> 
+                                
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2">Youtube Url</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" id=" ios_link" name="ios_link" class="form-control" value="<?php echo $sitesettings->ios_link;?>"/>
+                                    </div>
+                                </div> 
+                                
+<!--                                <div class="form-group">
                                     <label class="control-label col-lg-2" for="autosize">Google Analytics Code</label>
                                     <div class="col-lg-10">
                                         <textarea id="google_analytics" name="google_analytics" class="form-control" style="overflow: hidden; overflow-wrap: break-word; resize: horizontal; height: 200px;"><?php echo $sitesettings->google_analytics;?></textarea>
                                     </div>
-                                </div>
+                                </div>-->
 
                                 <label class="control-label col-lg-2"></label>
                                 <div class="col-lg-10" style="text-align:left;"> 

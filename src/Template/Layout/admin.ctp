@@ -48,13 +48,16 @@
 
     <?php echo  $this->Html->css('/plugins/datepicker/css/datepicker.css') ?>
     <?php echo  $this->Html->css('/plugins/timepicker/css/bootstrap-timepicker.min.css') ?>
-    <?php echo  $this->Html->css('/plugins/switch/static/stylesheets/bootstrap-switch.css') ?>    
+    <?php echo  $this->Html->css('/plugins/switch/static/stylesheets/bootstrap-switch.css') ?>
+        <?php echo  $this->Html->css('bootstrap-slider') ?>
         <!-- END PAGE LEVEL  STYLES -->
 
         <!-- GLOBAL SCRIPTS -->
+        
     <?php echo $this->Html->script('/plugins/jquery-2.0.3.min.js') ?>
     <?php echo $this->Html->script('/plugins/topup.js') ?>
     <?php echo $this->Html->script('/plugins/bootstrap/js/bootstrap.min.js') ?>
+        <?php echo $this->Html->script('bootstrap-slider.js') ?>
     <?php echo $this->Html->script('/plugins/modernizr-2.6.2-respond-1.1.0.min.js') ?>
         <!-- END GLOBAL SCRIPTS -->
 
@@ -63,10 +66,12 @@
     <?php echo $this->Html->script('/plugins/dataTables/dataTables.bootstrap.js') ?>
     <?php echo $this->Html->script('/plugins/validationengine/js/jquery.validationEngine.js') ?>
     <?php echo $this->Html->script('/plugins/validationengine/js/languages/jquery.validationEngine-en.js') ?>
+        
     <?php echo $this->Html->script('/plugins/jquery-validation-1.11.1/dist/jquery.validate.min.js') ?>
 
     <?php echo $this->Html->script('validationInit.js')?>
     <script>
+        var base_url = '<?php echo $this->Url->build('/admin/',true); ?>';
         $(function () {
             formValidation();
         });
@@ -143,7 +148,7 @@
     <!-- END HEAD -->
 
     <!-- BEGIN BODY -->
-    <body class="padTop53" >
+    <body class="padTop53" style=" padding-top:60px;">
 <?php //echo $_SERVER['DOCUMENT_ROOT'];?>
         <!-- MAIN WRAPPER -->
         <div id="wrap"> 
@@ -157,7 +162,7 @@
                     
                     <?php $filePathlo = WWW_ROOT . 'logo' .DS.$SiteSettings['site_logo']; ?>
                     <?php if ($SiteSettings['site_logo'] != "" && file_exists($filePathlo)) { ?>
-                        <img src="<?php echo $this->Url->build('/logo/'.$SiteSettings['site_logo']); ?>" height="35px" />
+                <img src="<?php echo $this->Url->build('/logo/'.$SiteSettings['site_logo']); ?>" style=" height:50px; margin-left:10px;" />
                     <?php } else { ?> 
                             No Logo Added
                     <?php } ?>                    
@@ -276,7 +281,7 @@
                     <!--ADMIN SETTINGS SECTIONS -->
                     <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="icon-user "></i>&nbsp; <i class="icon-chevron-down "></i> </a>
                         <ul class="dropdown-menu dropdown-user">
-                            <li><a href="<?php echo $this->Url->build("/");?>" target="_blank"><i class="icon-user"></i> Visit Site </a> </li>
+                            <li><a href="<?php echo $this->Url->build("/");?>admin/admins/edit/<?php echo $this->request->session()->read('Auth.User.id');?>"><i class="icon-user"></i> Edit Profile </a> </li>
                             <li class="divider"></li>
                             <li>
                                 <a href="<?php echo $this->Url->build(["controller" => "Users","action" => "logout"]);?>"><i class="icon-signout"></i> Logout </a> </li>
@@ -304,27 +309,14 @@
 
         <!-- FOOTER -->
         <div id="footer" style="margin-top: 15px">
-            <p>&copy;  pharma Admin </p>
+            <p>&copy;  Carvis Admin </p>
         </div>
         <!--END FOOTER --> 
 
         <!-- GLOBAL SCRIPTS --> 
 
         <!-- END GLOBAL SCRIPTS --> 
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyCTkgTknL3nwYbWD7mii-wvDowwk-6Izms&language=en-AU"></script>
-    <script>
-        var autocomplete = new google.maps.places.Autocomplete(
-        /** @type {!HTMLInputElement} */(document.getElementById('address')),
-        {types: ['geocode']});
-
-        google.maps.event.addListener(autocomplete, 'place_changed', function() {
-            var place = autocomplete.getPlace();
-            console.log(place.address_components);
-            //console.log(place.address_components['cities']['long_name']);
-            //console.log(place.address_components['country']['long_name']);
-            //console.log(place.address_components.locality);
-        });
-    </script> 
+    
     </body>
 
     <!-- END BODY -->

@@ -55,7 +55,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Contact Fax</label>
                                     <div class="col-lg-8">
-                                        <input type="text" id="contact_email" name="contact_fax" class="form-control" value="<?php echo $sitesettings->contact_fax;?>"/>
+                                        <input type="text" id="contact_fax" name="contact_fax" class="form-control" value="<?php echo $sitesettings->contact_fax;?>"/>
                                         <!--<input type="text" style="direction:rtl;" id="bank_name_arabic" name="last_name" class="form-control" value=""/>-->
                                     </div>
                                 </div>                                
@@ -63,10 +63,34 @@
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Contact Phone</label>
                                     <div class="col-lg-8">
-                                        <input type="text" id="contact_email" name="contact_phone" class="form-control" value="<?php echo $sitesettings->contact_phone;?>"/>
+                                        <input type="text" id="contact_phone" name="contact_phone" class="form-control" value="<?php echo $sitesettings->contact_phone;?>"/>
                                         <!--<input type="text" style="direction:rtl;" id="bank_name_arabic" name="last_name" class="form-control" value=""/>-->
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4">Copyright Text</label>
+                                    <div class="col-lg-8">
+                                        <input type="text" id="footer_text1" name="footer_text1" class="form-control" value="<?php echo $sitesettings->footer_text1;?>"/>
+                                        <!--<input type="text" style="direction:rtl;" id="bank_name_arabic" name="last_name" class="form-control" value=""/>-->
+                                    </div>
+                                </div>
+                                <!-- <div class="form-group">
+                                    <label class="control-label col-lg-4">Payment Method</label>
+                                    <div class="col-lg-8"> -->
+<!--                                        <div class=" col-md-6"><input type="checkbox"  name="is_paypal" class="form-control" value="1" <?php echo $sitesettings->is_paypal?'checked':'';?>/>Payapal</div>
+                                        <div class="col-md-6"><input type="checkbox"  name="is_stripe" class="form-control" value="1" <?php echo $sitesettings->is_stripe?'checked':'';?>/>Stripe
+</div>-->
+                                        
+                                       <!--  <div class="checkbox">
+                                            <label><input type="checkbox" value="1" name="is_paypal" <?php echo $sitesettings->is_paypal?'checked':'';?>>Payapal</label>
+                                        </div>
+                                            <div class="checkbox">
+                                                <label><input type="checkbox" value="1" name="is_stripe" <?php echo $sitesettings->is_stripe?'checked':'';?>>Stripe</label>
+                                            </div>
+                                        
+                                        
+                                    </div>
+                                </div> -->
                                 
                                 <!--
                                 <div class="form-group">

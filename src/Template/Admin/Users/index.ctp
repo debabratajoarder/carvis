@@ -6,7 +6,7 @@
             
                             <?php $filePathlo = WWW_ROOT . 'logo' .DS.$SiteSettings['site_logo']; ?>
                             <?php if ($SiteSettings['site_logo'] != "" && file_exists($filePathlo)) { ?>
-                                <img src="<?php echo $this->Url->build('/logo/'.$SiteSettings['site_logo']); ?>"/>
+            <img src="<?php echo $this->Url->build('/logo/'.$SiteSettings['site_logo']); ?>"  width="100%"/>
                             <?php } else { ?> 
                                     <?php echo $this->Html->image('admin/unnamed.png', ['alt' => 'logo', 'height' => 75, 'width' => 75]); ?>
                             <?php } ?>            
@@ -16,7 +16,7 @@
 			</a>
     </div>
     <div class="tab-content">
-		<h2> <i class="fa fa-lock"></i> LOGIN</h2>
+		<h2> <i class="fa fa-lock"></i> Admin Login </h2>
         <?php echo $this->Form->create('',['class' => 'form-signin', 'id' => '']);?> 
         <?php echo  $this->Flash->render() ?>
         <div id="login" class="tab-pane active">
@@ -27,6 +27,8 @@
                 <input type="text" placeholder="Username" name="username" id="username" class="form-control" />
 			    <input type="password" placeholder="Password" name="password" id="password" class="form-control" />
                 <button class="btn text-muted text-center btn-danger" type="submit">Sign in</button>
+                                 <a  href="<?php echo $this->Url->build(["action" => "forgotpassword"]); ?>">Forgot Password</a> 
+
             </form>
         </div>
         </form>

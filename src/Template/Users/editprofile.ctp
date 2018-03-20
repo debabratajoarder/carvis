@@ -1,96 +1,139 @@
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<div class="clearfix"></div>
+<?php echo $this->element('profile_head');?>
 
-<script>
-    $(function () {
-        $(".datepicker").datepicker({maxDate: -6570, dateFormat: 'yy-mm-dd'}).val();
-    });
-</script>
-<?php echo $this->element('usermenu'); ?>
-<div class="my-order-tab">
-    <header class="main-content-header">
-        <h2>Edit my details</h2>
-    </header>
-    <!-- <form class="registration_form"> -->
-    <?php echo $this->Form->create($user, ['class' => 'registration_form', 'id' => 'useredit-validate']); ?>
-        <div class="edit-info-area">
-            <!--
-            <div class="form-block">
-                <label class="required" for="title">
-                    Gender
-                    <span class="required" title="Required">*</span>
-                </label>
-                <div class="inline-until-mobile">
-                    <?php if($user->gender != ''){ ?>
-                        <?php if($user->gender == 'Male'){ ?>
-                            <label class="male-btn active" for="gender-male">Male</label>
-                        <?php } else { ?>
-                            <label class="male-btn active" for="gender-male">Femle</label>
-                        <?php } ?>
-                    <?php } else { ?>
-                        <label class="male-btn active" for="gender-male">Not Defined</label>
-                    <?php } ?>
-                </div>
-            </div>
-            -->
+<div class="clearfix"></div>
+
+<section class="edit-profil-detaildiv">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4">
+				
+                          <?php echo $this->element('side_menu');?>  
+                            
+			</div>
+
+			<div class="col-md-8">
+				<div class="edit-profil-rightdiv">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="user-div">
+								<h5 class="h5">Edit Profile</h5>
+							</div>
+						</div>
+					</div>					
+					<div class="edit-profil-formdiv">
+						<form action="<?php echo $this->Url->build(["controller" => "Users","action" => "editprofile"]);?>" method="post" class="form-inline">
+							<div class="row">
+								<div class="col-md-6">
+								  <div class="form-group">
+								    <label for="n">Name</label>
+								    <div class="input-group">
+								    	<div class="input-group-addon">
+								    		<i class="fa fa-user"></i>
+								    	</div>
+								    	<input type="text" class="form-control" id="n" placeholder="Name..." name="full_name" value="<?php echo $user->full_name;?>">
+								    </div>
+								  </div>								
+								</div>
+
+								<div class="col-md-6">
+								  <div class="form-group">
+								    <label for="e">Email</label>
+								    <div class="input-group">
+								    	<div class="input-group-addon">
+								    		<i class="fa fa-envelope"></i>
+								    	</div>
+								    	<input type="email" class="form-control" id="e" name="email" value="<?php echo $user->email;?>" placeholder="Mail Here...">
+								    </div>
+								  </div>									
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-6">
+								  <div class="form-group">
+								    <label for="c">Contact Number</label>
+								    <div class="input-group">
+								    	<div class="input-group-addon">
+								    		<i class="fa fa-phone"></i>
+								    	</div>
+								    	<input type="text" class="form-control" id="c" name="phone" value="<?php echo $user->phone;?>" placeholder="Phone Number...">
+								    </div>
+								  </div>								
+								</div>
+
+								<div class="col-md-6">
+								  <div class="form-group">
+								    <label for="ad">Address</label>
+								    <div class="input-group">
+								    	<div class="input-group-addon">
+								    		<i class="fa fa-address-book"></i>
+								    	</div>
+								    	<input type="text" class="form-control"id="autocomplete" name="address" type="text" onFocus=geolocate() value="<?php echo $user->address ?>" placeholder="Address Here...">
+								    </div>
+								  </div>									
+								</div>
+							</div>
+                                                    <input  type="hidden" id="lat" name="latitude" value="<?php echo $user->latitude ?>"/>
+<input  type="hidden" id="long" name="longitude" value="<?php echo $user->longitude ?>"/>
+
+														
+							
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<button class="form-control btn text-uppercase" type="submit"> Save</button>
+									</div>
+								</div>
+							</div>
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="clearfix"></div>
+<script>     
+      var placeSearch, autocomplete;   
+
+      function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+            {types: ['geocode']});   
+
+             google.maps.event.addListener(autocomplete, 'place_changed', function() {
+		      var place = autocomplete.getPlace();
+		      var lat = place.geometry.location.lat();
+		      var lng = place.geometry.location.lng();
+		      $('#lat').val(lat);
+                      $('#long').val(lng);
+		    
+		    });     
+      }
+
+     
+      function geolocate() { 
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) { 
+            var geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy
+            });
             
-            <div class="form-block">
-                <label class="required requiredlabel" for="title">Gender</label>
-                <?php 
-                $options = ['Male' => 'Male', 'Female' => 'Female'];
-                $attributes = ['legend' => true, 'value' => $user->gender];
-                echo $this->Form->radio('gender', $options, $attributes);
-                ?>
-            </div>            
-            <div class="form-block">
-                <?php echo $this->Form->input('first_name', array('label' => 'First Name', 'div' => false, 'class' => '', 'value' => $user->first_name)); ?>
-            </div>
-            <div class="form-block">
-                <?php echo $this->Form->input('last_name', array('label' => 'Last Name', 'div' => false, 'class' => '', 'value' => $user->last_name)); ?>
-            </div>
-            <div class="form-block">
-                <?php echo $this->Form->input('email', array('label' => 'Email', 'div' => false, 'class' => '', 'type'=>'text', 'value' => $user->email)); ?>
-            </div>
-            <div class="form-block">
-                <?php echo $this->Form->input('password', array('label' => 'Password', 'div' => false, 'class' => '', 'type'=>'text', 'value' => '')); ?>
-            </div>
-            <div class="form-block">
-                <?php echo $this->Form->input('phone', array('label' => 'Telephone', 'div' => false, 'class' => '', 'type'=>'text', 'value' => $user->phone)); ?>
-            </div>
-            <div class="form-block">
-                <?php echo $this->Form->input('dob', array('label' => 'Date of Birth', 'div' => false, 'class' => 'datepicker', 'type'=>'text', 'value' => date('Y-m-d', strtotime($user->dob)))); ?>
-            </div>
-        </div>
-        <div class="edit-info-area">
-            <div class="deliveryaddress">
-                <h3>Delivery Address</h3>
-                <p> Enter address below for shipping address </p>
-            </div>
-            <div class="form-block">
-                <?php echo $this->Form->input('address', array('label' => 'Street Address', 'div' => false, 'class' => 'textareapart', 'type'=>'textarea', 'value' => $user->address)); ?>
-            </div>
-            <div class="form-block">
-                <?php echo $this->Form->input('city', array('label' => 'City', 'div' => false, 'class' => '', 'type'=>'text', 'value' => $user->city)); ?>
-            </div>
-            <div class="form-block">
-                <?php echo $this->Form->input('region', array('label' => 'County/region', 'div' => false, 'class' => '', 'type'=>'text', 'value' => $user->region)); ?>
-            </div>
-            <div class="form-block">
-                <?php echo $this->Form->input('postcode', array('label' => 'Post Code', 'div' => false, 'class' => '', 'type'=>'text', 'value' => $user->postcode)); ?>
-            </div>
-            <div class="form-block">
-                <?php echo $this->Form->input('country', array('label' => 'Country', 'div' => false, 'class' => '', 'type'=>'text', 'value' => $user->country)); ?>
-            </div>
-            <div class="form-block">
-                <label class="required requiredlabel" for="title">
-                </label>
-                <button class="btn btn-default accountbutton" type="submit">Update Details</button>
-            </div>
-        </div>
-    <?php echo $this->Form->end();?>
+            autocomplete.setBounds(circle.getBounds());
+          });
+        }
+      }
+    </script>
 
-    <a href="<?php echo $this->Url->build(["controller" => "Users", "action" => "signout"]); ?>">
-        <button type="button" class="btn btn-info btn-logout">Logout <i class="fa fa-lock"></i> </button>
-    </a>
-
-</div>
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQ9hl89w8uiMND1-cnmkTVnqGh37TDvvk&libraries=places&callback=initAutocomplete"
+        async defer></script>
+ 
